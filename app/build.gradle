@@ -11,12 +11,94 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    signingConfigs{
+        dev{
+            storeFile file("../keys/dev.jks")
+            storePassword "cows-and-bulls-dev-key"
+            keyAlias "cows-and-bulls-dev-key"
+            keyPassword "cows-and-bulls-dev-key"
+        }
+
+        qa{
+            storeFile file("../keys/qa.jks")
+            storePassword "cows-and-bulls-qa-key"
+            keyAlias "cows-and-bulls-qa-key"
+            keyPassword "cows-and-bulls-qa-key"
+        }
+
+        prod{
+            storeFile file("../keys/prod/prod.jks")
+            storePassword "dfbsdjf7347sd"
+            keyAlias "alphabet-prod-key"
+            keyPassword "jkdlf39JHUi09"
+        }
+    }
+
+    flavorDimensions "version"
+
+    productFlavors {
+        dev {
+            dimension "version"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+
+            buildConfigField "String", "BaseUrl", "\"https://need.specify\""
+
+            signingConfig signingConfigs.dev
+        }
+
+        qa {
+            dimension "version"
+            applicationIdSuffix ".qa"
+            versionNameSuffix "-qa"
+
+            buildConfigField "String", "BaseUrl", "\"https://need.specify\""
+
+            signingConfig signingConfigs.qa
+
+//            ext.betaDistributionReleaseNotes = "\"${formReleaseNote}\""
+//            ext.betaDistributionReleaseNotes = "\"${release_v_1_3}\""
+            ext.betaDistributionEmails = "tyteishi@gmail.com"
+            ext.betaDistributionGroupAliases = "CowsAndBulls-Dev-Team, CowsAndBulls-Qa-Team"
+        }
+
+        prod{
+            dimension "version"
+
+            buildConfigField "String", "ApiUrl", "\"https://need.specify\""
+
+            signingConfig signingConfigs.prod
+        }
+    }
+
     buildTypes {
+        debug {
+            minifyEnabled false
+            debuggable true
+        }
+
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+task uploadeToCrashlytics{
+//    def commit = getCurrentCommit()
+
+//    if(commit.matches("(.*)[B,b]ump(.*)")){
+    dependsOn("assembleQaRelease")
+//    dependsOn('crashlyticsUploadDistributionQaRelease')
+//    }else{
+//        println commit
+//    }
 }
 
 dependencies {
