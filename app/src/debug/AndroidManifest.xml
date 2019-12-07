@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+          xmlns:tools="http://schemas.android.com/tools"
+    package="com.github.kiolk.cowsandbulls">
+
+    <application
+            android:name=".DebugApp"
+            tools:replace="android:name">
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="5461e4d1143447088c0d753d7daa1aa0904a2876" />
+    </application>
+</manifest>
