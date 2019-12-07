@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "482674831923",
+    "firebase_url": "https://cowsandbulls-acdea.firebaseio.com",
+    "project_id": "cowsandbulls-acdea",
+    "storage_bucket": "cowsandbulls-acdea.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482674831923:android:6c9e3813ff5419fad5a946",
+        "android_client_info": {
+          "package_name": "com.github.kiolk.cowsandbulls.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482674831923-1tebme5n8lcdnh6aphq67g5vdnsq7rbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzUbSyvB8gDmrXPchZtdxRpwBToLMRUAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482674831923-1tebme5n8lcdnh6aphq67g5vdnsq7rbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482674831923:android:1555c0df47973a76d5a946",
+        "android_client_info": {
+          "package_name": "com.github.kiolk.cowsandbulls.prod"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482674831923-1tebme5n8lcdnh6aphq67g5vdnsq7rbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzUbSyvB8gDmrXPchZtdxRpwBToLMRUAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482674831923-1tebme5n8lcdnh6aphq67g5vdnsq7rbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:482674831923:android:fb32fb16fb6175b3d5a946",
+        "android_client_info": {
+          "package_name": "com.github.kiolk.cowsandbulls.qa"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "482674831923-1tebme5n8lcdnh6aphq67g5vdnsq7rbo.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAzUbSyvB8gDmrXPchZtdxRpwBToLMRUAQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "482674831923-1tebme5n8lcdnh6aphq67g5vdnsq7rbo.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

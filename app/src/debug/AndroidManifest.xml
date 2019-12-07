@@ -7,7 +7,7 @@
             android:name=".DebugApp"
             tools:replace="android:name">
         <meta-data
-            android:name="io.fabric.ApiKey"
-            android:value="5461e4d1143447088c0d753d7daa1aa0904a2876" />
+            android:name="firebase_crashlytics_collection_enabled"
+            android:value="false" />
     </application>
 </manifest>
