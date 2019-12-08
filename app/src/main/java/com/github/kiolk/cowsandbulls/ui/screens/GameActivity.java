@@ -1,10 +1,12 @@
-package com.github.kiolk.cowsandbulls;
+package com.github.kiolk.cowsandbulls.ui.screens;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class MainActivity extends AppCompatActivity {
+import com.github.kiolk.cowsandbulls.R;
+
+public class GameActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
