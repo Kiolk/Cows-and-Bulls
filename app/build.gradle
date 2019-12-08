@@ -33,10 +33,10 @@ android {
         }
 
         prod{
-            storeFile file("../keys/prod/prod.jks")
-            storePassword "dfbsdjf7347sd"
-            keyAlias "alphabet-prod-key"
-            keyPassword "jkdlf39JHUi09"
+            storeFile file("../keys/prod.jks")
+            storePassword "cows-and-bulls-prod-key"
+            keyAlias "cows-and-bulls-prod-key"
+            keyPassword "cows-and-bulls-prod-key"
         }
     }
 
@@ -77,6 +77,8 @@ android {
 
         prod{
             dimension "version"
+            applicationIdSuffix ".prod"
+            versionNameSuffix "-prod"
 
             buildConfigField "String", "ApiUrl", "\"https://need.specify\""
 
