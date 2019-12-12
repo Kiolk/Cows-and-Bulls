@@ -51,7 +51,6 @@ public class GameActivity extends AppCompatActivity implements TimerChange {
                     break;
                 }
             }
-
         }
     };
 
@@ -66,9 +65,5 @@ public class GameActivity extends AppCompatActivity implements TimerChange {
 
             }
         });
-
     }
-
-
-
 }
