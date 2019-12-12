@@ -9,16 +9,19 @@ import android.widget.TextView;
 
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.logic.CustomTimer;
+import com.github.kiolk.cowsandbulls.logic.TimerChange;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity implements TimerChange {
 
     private CustomTimer mCustomTimer;
+    private TextView mTimerTV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCustomTimer = new CustomTimer();
+        mCustomTimer = new CustomTimer(this);
+        mTimerTV = findViewById(R.id.timerTV);
         //start
         Button buttonStart = findViewById(R.id.startButton);
         Button buttonStop = findViewById(R.id.stopButton);
@@ -40,15 +43,32 @@ public class GameActivity extends AppCompatActivity {
                     break;
                 }
                 case R.id.stopButton: {
-                    ((TextView) findViewById(R.id.timerTV)).setText(mCustomTimer.stop());
+                    mCustomTimer.stop();
                     break;
                 }
                 case R.id.resetButton: {
-                    ((TextView) findViewById(R.id.timerTV)).setText(mCustomTimer.reset());
+                    mCustomTimer.reset();
                     break;
                 }
             }
 
         }
     };
+
+    @Override
+    public void updateView(String text) {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+
+                (mTimerTV).setText(text);
+
+            }
+        });
+
+    }
+
+
+
 }
