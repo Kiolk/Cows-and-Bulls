@@ -1,9 +1,6 @@
 package com.github.kiolk.cowsandbulls.logic;
 
 import android.os.Bundle;
-import android.util.Log;
-
-
 import java.text.SimpleDateFormat;
 import java.util.Locale;
 import java.util.Timer;
