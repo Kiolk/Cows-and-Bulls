@@ -1,79 +1,51 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.logic.CustomTimer;
-import com.github.kiolk.cowsandbulls.logic.TimerChange;
+import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
+import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 
-public class GameActivity extends AppCompatActivity implements TimerChange {
+public class GameActivity extends AppCompatActivity implements KeyboardLayout.OnKeyBoardListener {
 
     private CustomTimer mCustomTimer;
     private TextView mTimerTV;
+    private DisplayLayout mDisplayLayout;
+    private KeyboardLayout mKeyboardLayout;
+    private String mInput = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        mCustomTimer = new CustomTimer(this);
-        mTimerTV = findViewById(R.id.timerTV);
-        //start
-        Button buttonStart = findViewById(R.id.startButton);
-        Button buttonStop = findViewById(R.id.stopButton);
-        Button buttonReset = findViewById(R.id.resetButton);
-
-        buttonStart.setOnClickListener(listener);
-        buttonStop.setOnClickListener(listener);
-        buttonReset.setOnClickListener(listener);
-        //stop -> this block only for tasting
+        mDisplayLayout = findViewById(R.id.display_input);
+        mKeyboardLayout = findViewById(R.id.keyboard_game);
+        mKeyboardLayout.setOnKeyBoardListener(this);
     }
 
     @Override
-    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
-        super.onRestoreInstanceState(savedInstanceState);
-        this.mCustomTimer=CustomTimer.restoreTimer(savedInstanceState, this);
+    public void onKeyPressed(String input) {
+        mInput = input;
+        mDisplayLayout.setText(input);
     }
 
     @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(mCustomTimer.saveState(outState));
+    public void onStartPressed() {
+
     }
 
-    private View.OnClickListener listener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            switch (v.getId()) {
-                case R.id.startButton: {
-                    mCustomTimer.start();
-                    break;
-                }
-                case R.id.stopButton: {
-                    mCustomTimer.stop();
-                    break;
-                }
-                case R.id.resetButton: {
-                    mCustomTimer.reset();
-                    break;
-                }
-            }
-        }
-    };
+    @Override
+    public void onStopPressed() {
+
+    }
 
     @Override
-    public void updateView(String text) {
-        runOnUiThread(new Runnable() {
+    public void onEnterPressed() {
 
-            @Override
-            public void run() {
-                (mTimerTV).setText(text);
-            }
-        });
     }
 }
