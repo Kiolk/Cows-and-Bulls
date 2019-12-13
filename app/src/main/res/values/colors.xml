@@ -10,5 +10,6 @@
     <color name="lightGray">#E0E0E0</color>
     <color name="transparentGray">#59E0E0E0</color>
     <color name="generalRed">#EA4335</color>
+    <color name="white">#FFFFFF</color>
 
 </resources>

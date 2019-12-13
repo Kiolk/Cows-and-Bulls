@@ -19,6 +19,7 @@ public class GameActivity extends AppCompatActivity implements TimerChange {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mCustomTimer = new CustomTimer(this);
