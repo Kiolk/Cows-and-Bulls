@@ -1,5 +1,6 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -31,7 +32,17 @@ public class GameActivity extends AppCompatActivity implements TimerChange {
         buttonStop.setOnClickListener(listener);
         buttonReset.setOnClickListener(listener);
         //stop -> this block only for tasting
+    }
 
+    @Override
+    protected void onRestoreInstanceState(@NonNull Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        this.mCustomTimer=CustomTimer.restoreTimer(savedInstanceState, this);
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(mCustomTimer.saveState(outState));
     }
 
     private View.OnClickListener listener = new View.OnClickListener() {
@@ -60,9 +71,7 @@ public class GameActivity extends AppCompatActivity implements TimerChange {
 
             @Override
             public void run() {
-
                 (mTimerTV).setText(text);
-
             }
         });
     }
