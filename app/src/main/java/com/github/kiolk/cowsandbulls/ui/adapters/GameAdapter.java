@@ -75,10 +75,10 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
         }
 
         private void onBindView(Move move, int position) {
-            mMoveNumber.setText(position + 1);
+            mMoveNumber.setText(String.valueOf(position + 1) );
             mCombination.setText(move.getValue());
-            mCowsCount.setText(move.getAmountOfCows());
-            mBullsCount.setText(move.getAmountOfBulls());
+            mCowsCount.setText(String.valueOf(move.getAmountOfCows()));
+            mBullsCount.setText(String.valueOf(move.getAmountOfBulls()));
         }
 
     }

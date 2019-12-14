@@ -36,6 +36,7 @@
 
     <ImageView
         android:id="@+id/iv_cow_icon"
+        android:src="@drawable/ic_cow"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
@@ -52,6 +53,7 @@
 
     <ImageView
         android:id="@+id/iv_bull_icon"
+        android:src="@drawable/ic_bull"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
