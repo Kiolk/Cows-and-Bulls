@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="2dp"
+    android:layout_marginBottom="2dp"
     android:orientation="horizontal">
 
     <TextView
@@ -10,20 +13,24 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:layout_marginStart="30dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="8dp"
+        android:background="@drawable/bg_round"
+        android:fontFamily="@font/product_sans_regular"
         android:textAlignment="center"
-        android:textSize="20sp" />
+        android:textColor="@color/generalGray"
+        android:textSize="20sp"
+        tools:text="1" />
 
     <TextView
         android:id="@+id/tv_moveCombination"
-        android:layout_width="45dp"
+        android:layout_width="wrap_content"
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:layout_marginLeft="15dp"
         android:layout_marginEnd="17dp"
+        android:fontFamily="@font/product_sans_regular"
         android:textAlignment="center"
+        android:textColor="@color/generalGray"
         android:textSize="20sp" />
 
     <ImageView
@@ -32,15 +39,15 @@
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:layout_marginEnd="17dp"
-        android:background="#969696" />
+        android:background="@color/lightGray" />
 
     <ImageView
         android:id="@+id/iv_cow_icon"
-        android:src="@drawable/ic_cow"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="5dp" />
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_cow" />
 
     <TextView
         android:id="@+id/tv_cows_count"
@@ -48,16 +55,18 @@
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:layout_marginEnd="17dp"
+        android:fontFamily="@font/product_sans_regular"
         android:textAlignment="center"
+        android:textColor="@color/generalGray"
         android:textSize="20sp" />
 
     <ImageView
         android:id="@+id/iv_bull_icon"
-        android:src="@drawable/ic_bull"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="5dp" />
+        android:layout_marginEnd="5dp"
+        android:src="@drawable/ic_bull" />
 
     <TextView
         android:id="@+id/tv_bulls_count"
@@ -65,7 +74,9 @@
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:layout_marginEnd="157dp"
+        android:fontFamily="@font/product_sans_regular"
         android:textAlignment="center"
+        android:textColor="@color/generalGray"
         android:textSize="20sp" />
 
 </LinearLayout>
