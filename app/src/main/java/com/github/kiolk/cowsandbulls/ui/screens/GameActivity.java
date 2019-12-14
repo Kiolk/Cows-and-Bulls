@@ -1,12 +1,15 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.TextView;
 
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.logic.CustomTimer;
+import com.github.kiolk.cowsandbulls.ui.adapters.GameAdapter;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 
@@ -17,6 +20,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private DisplayLayout mDisplayLayout;
     private KeyboardLayout mKeyboardLayout;
     private String mInput = "";
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +30,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mDisplayLayout = findViewById(R.id.display_input);
         mKeyboardLayout = findViewById(R.id.keyboard_game);
         mKeyboardLayout.setOnKeyBoardListener(this);
+        initRecyclerView();
     }
 
     @Override
@@ -47,5 +52,11 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     @Override
     public void onEnterPressed() {
 
+    }
+
+    public void initRecyclerView() {
+        mRecyclerView = findViewById(R.id.rv_moves);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+        mRecyclerView.setAdapter(new GameAdapter());
     }
 }
