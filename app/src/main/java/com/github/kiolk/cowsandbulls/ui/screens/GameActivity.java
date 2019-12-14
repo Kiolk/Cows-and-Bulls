@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private DisplayLayout mDisplayLayout;
     private KeyboardLayout mKeyboardLayout;
     private String mInput = "";
+    private int mMoves = 0;
     private RecyclerView mRecyclerView;
     private String mCodedNumber = "";
     private GameAdapter mAdapter;
@@ -89,30 +90,35 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mAdapter.onClear();
         mCustomTimer.reset();
         mCustomTimer.start();
+        mMoves = 0;
     }
 
     @Override
     public void onStopPressed() {
         mDisplayLayout.setText(mCodedNumber);
         mCustomTimer.stop();
+        mMoves = 0;
     }
 
     @Override
     public void onEnterPressed() {
-        if(!NumberUtil.checkCorrectInput(mInput, LENGTH_CODED_NUMBER)){
+        if (!NumberUtil.checkCorrectInput(mInput, LENGTH_CODED_NUMBER)) {
             Toast.makeText(this, "Your number incorrect", Toast.LENGTH_LONG).show();
+            return;
         }
-
+        mMoves++;
         int cows = NumberUtil.getCowsNumber(mCodedNumber, mInput);
         int bulls = NumberUtil.getBullsNumber(mCodedNumber, mInput);
 
         Log.d("MyLogs", "onEnterPressed: cows " + cows + " bulls: " + bulls);
 
-        if(bulls == LENGTH_CODED_NUMBER){
-            mDisplayLayout.setText(mCodedNumber);
+        if (bulls == LENGTH_CODED_NUMBER) {
             mKeyboardLayout.stop();
+            mDisplayLayout.setText(mCodedNumber);
+            mCustomTimer.stop();
             PublishDialog dialog = new PublishDialog();
-            dialog.setResult(new GameResult(5, 123l));
+            dialog.setResult(new GameResult(mMoves, mCustomTimer.getTimeLong()));
+            mMoves = 0;
             dialog.show(getSupportFragmentManager(), PublishDialog.TAG);
         }
 
