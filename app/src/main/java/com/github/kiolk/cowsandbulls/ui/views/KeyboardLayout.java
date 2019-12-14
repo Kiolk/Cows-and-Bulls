@@ -1,6 +1,7 @@
 package com.github.kiolk.cowsandbulls.ui.views;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -149,6 +150,12 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
                 listener.onKeyPressed(mInput);
                 break;
         }
+    }
+
+    public void stop(){
+        mStart.setText(R.string.start);
+        isStarted = false;
+        mEnter.setEnabled(false);
     }
 
     private void checkPress(String pressedNumber) {
