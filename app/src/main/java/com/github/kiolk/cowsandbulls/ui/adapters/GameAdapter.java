@@ -3,6 +3,7 @@ package com.github.kiolk.cowsandbulls.ui.adapters;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,9 +58,9 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
         TextView mCowsCount;
         TextView mBullsCount;
 
-//        Add views
-//        ImageView mCowIcon;
-//        ImageView mBullIcon;
+        ImageView mSeparator;
+        ImageView mCowIcon;
+        ImageView mBullIcon;
 
         private ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -67,6 +68,10 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
             mCombination = itemView.findViewById(R.id.tv_moveCombination);
             mCowsCount = itemView.findViewById(R.id.tv_cows_count);
             mBullsCount = itemView.findViewById(R.id.tv_bulls_count);
+
+            mSeparator = itemView.findViewById(R.id.iv_separator);
+            mCowIcon = itemView.findViewById(R.id.iv_cow_icon);
+            mBullIcon = itemView.findViewById(R.id.iv_bull_icon);
         }
 
         private void onBindView(Move move, int position) {
