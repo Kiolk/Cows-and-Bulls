@@ -8,6 +8,13 @@
     tools:context=".ui.screens.GameActivity">
 
     <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_upper"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.05" />
+
+    <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_bottom"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
