@@ -12,4 +12,12 @@
     <string name="zero">0</string>
     <string name="start">Start</string>
     <string name="stop">Stop</string>
+
+    <!-- Publish dialog   -->
+    <string name="text_dialog_publish">Publish</string>
+    <string name="text_dialog_time">Time</string>
+    <string name="text_dialog_moves">Moves</string>
+    <string name="cancel">Cancel</string>
+    <string name="title_dialog">Want to publish your result?</string>
+    <string name="your_nick_name">Your nickname</string>
 </resources>

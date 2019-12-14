@@ -8,8 +8,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.kiolk.cowsandbulls.R;
+import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.Move;
 import com.github.kiolk.cowsandbulls.logic.CustomTimer;
+import com.github.kiolk.cowsandbulls.ui.dialogs.PublishDialog;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
@@ -84,7 +86,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         if(bulls == LENGTH_CODED_NUMBER){
             mDisplayLayout.setText(mCodedNumber);
             mKeyboardLayout.stop();
-            //TODO show win dialog
+            PublishDialog dialog = new PublishDialog();
+            dialog.setResult(new GameResult(5, 123l));
+            dialog.show(getSupportFragmentManager(), PublishDialog.TAG);
         }
 
         Move nextMove = new Move(mInput, cows, bulls);
