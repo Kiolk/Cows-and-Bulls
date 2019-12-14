@@ -32,6 +32,17 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
 
     private TextView mStart;
     private RelativeLayout mEnter;
+    private TextView mOne;
+    private TextView mTwo;
+    private TextView mThree;
+    private TextView mForth;
+    private TextView mFifth;
+    private TextView mSix;
+    private TextView mSeven;
+    private TextView mEight;
+    private TextView mNine;
+    private TextView mZero;
+    private ImageView mClean;
 
     public KeyboardLayout(Context context) {
         super(context);
@@ -53,19 +64,22 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View view = inflater.inflate(R.layout.layout_keyboard, this, true);
 
-        TextView mOne = view.findViewById(R.id.btn_one);
-        TextView mTwo = view.findViewById(R.id.btn_two);
-        TextView mThree = view.findViewById(R.id.btn_three);
-        TextView mForth = view.findViewById(R.id.btn_four);
-        TextView mFifth = view.findViewById(R.id.btn_five);
-        TextView mSix = view.findViewById(R.id.btn_six);
-        TextView mSeven = view.findViewById(R.id.btn_seven);
-        TextView mEight = view.findViewById(R.id.btn_eight);
-        TextView mNine = view.findViewById(R.id.btn_nine);
-        TextView mZero = view.findViewById(R.id.btn_zero);
+        mOne = view.findViewById(R.id.btn_one);
+        mTwo = view.findViewById(R.id.btn_two);
+        mThree = view.findViewById(R.id.btn_three);
+        mForth = view.findViewById(R.id.btn_four);
+        mFifth = view.findViewById(R.id.btn_five);
+        mSix = view.findViewById(R.id.btn_six);
+        mSeven = view.findViewById(R.id.btn_seven);
+        mEight = view.findViewById(R.id.btn_eight);
+        mNine = view.findViewById(R.id.btn_nine);
+        mZero = view.findViewById(R.id.btn_zero);
         mEnter = view.findViewById(R.id.btn_enter);
-        ImageView mClean = view.findViewById(R.id.btn_clear);
+        mClean = view.findViewById(R.id.btn_clear);
         mStart = view.findViewById(R.id.btn_start);
+
+        mEnter.setEnabled(false);
+        mClean.setEnabled(false);
 
         mOne.setOnClickListener(this);
         mTwo.setOnClickListener(this);
@@ -126,15 +140,19 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
                 if (!isStarted) {
                     listener.onStartPressed();
                     mStart.setText(R.string.stop);
+                    mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_red_button));
                     isStarted = true;
                     mEnter.setEnabled(false);
                     mInput = "";
                     listener.onKeyPressed(mInput);
+                    enableButtons(true);
                 } else {
                     listener.onStopPressed();
                     mStart.setText(R.string.start);
+                    mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_start_button));
                     isStarted = false;
                     mEnter.setEnabled(false);
+                    enableButtons(false);
                 }
                 break;
             case R.id.btn_clear:
@@ -159,7 +177,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
     }
 
     private void checkPress(String pressedNumber) {
-        if (!mInput.contains(pressedNumber)) {
+        if (!mInput.contains(pressedNumber) && mInput.length() < 4) {
             mInput = mInput + pressedNumber;
             listener.onKeyPressed(mInput);
         }
@@ -169,5 +187,19 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         } else {
             mEnter.setEnabled(false);
         }
+    }
+
+    private void enableButtons(Boolean enabled){
+        mOne.setEnabled(enabled);
+        mTwo.setEnabled(enabled);
+        mThree.setEnabled(enabled);
+        mForth.setEnabled(enabled);
+        mFifth.setEnabled(enabled);
+        mSix.setEnabled(enabled);
+        mSeven.setEnabled(enabled);
+        mEight.setEnabled(enabled);
+        mNine.setEnabled(enabled);
+        mZero.setEnabled(enabled);
+        mClean.setEnabled(enabled);
     }
 }

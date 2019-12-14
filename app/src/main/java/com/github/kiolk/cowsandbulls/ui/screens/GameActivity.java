@@ -42,7 +42,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme);
+        setTheme(R.style.AppTheme_Default);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDisplayLayout = findViewById(R.id.display_input);
@@ -124,6 +124,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
         Move nextMove = new Move(mInput, cows, bulls);
         mAdapter.addNextMove(nextMove);
+        mRecyclerView.scrollToPosition(mAdapter.getItemCount() - 1);
     }
 
     @Override

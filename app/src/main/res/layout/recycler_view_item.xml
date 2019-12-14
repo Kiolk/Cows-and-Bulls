@@ -13,7 +13,6 @@
         android:layout_height="30dp"
         android:layout_gravity="center"
         android:gravity="center"
-        android:layout_marginStart="30dp"
         android:layout_marginEnd="15dp"
         android:background="@drawable/bg_round"
         android:fontFamily="@font/product_sans_regular"
@@ -47,8 +46,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="5dp"
-        android:src="@drawable/ic_cow" />
+        android:layout_marginEnd="5dp"/>
 
     <TextView
         android:id="@+id/tv_cows_count"
@@ -66,8 +64,7 @@
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="5dp"
-        android:src="@drawable/ic_bull" />
+        android:layout_marginEnd="5dp"/>
 
     <TextView
         android:id="@+id/tv_bulls_count"

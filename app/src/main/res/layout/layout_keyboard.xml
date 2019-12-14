@@ -88,6 +88,9 @@
                 style="@style/AppTheme.KeyboardButton"
                 android:layout_height="40dp"
                 android:background="@drawable/bg_colored_button"
+                android:clickable="true"
+                android:enabled="true"
+                android:focusable="true"
                 android:text="@string/start"
                 android:textColor="@color/white" />
 
@@ -103,9 +106,10 @@
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
                 android:layout_weight="1"
+                android:enabled="false"
                 android:background="@drawable/bg_enter_button"
                 android:clickable="false"
-                android:focusable="true"
+                android:focusable="false"
                 android:orientation="horizontal"
                 android:text="@string/one">
 
@@ -130,9 +134,10 @@
                     android:layout_alignParentEnd="true"
                     android:layout_alignParentRight="true"
                     android:background="@drawable/bg_enter_button"
-                    android:clickable="true"
+                    android:clickable="false"
                     android:drawablePadding="5dp"
-                    android:focusable="true"
+                    android:enabled="false"
+                    android:focusable="false"
                     android:gravity="center"
                     android:scaleType="center"
                     android:src="@drawable/ic_clear"
