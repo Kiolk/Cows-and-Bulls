@@ -20,4 +20,5 @@
     <string name="cancel">Cancel</string>
     <string name="title_dialog">Want to publish your result?</string>
     <string name="your_nick_name">Your nickname</string>
+    <string name="start_time">00:00</string>
 </resources>

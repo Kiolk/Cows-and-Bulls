@@ -1,11 +1,13 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -15,11 +17,12 @@ import com.github.kiolk.cowsandbulls.data.models.Move;
 import com.github.kiolk.cowsandbulls.logic.CustomTimer;
 import com.github.kiolk.cowsandbulls.ui.adapters.GameAdapter;
 import com.github.kiolk.cowsandbulls.ui.dialogs.PublishDialog;
+import com.github.kiolk.cowsandbulls.logic.TimerChange;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
 
-public class GameActivity extends AppCompatActivity implements KeyboardLayout.OnKeyBoardListener {
+public class GameActivity extends AppCompatActivity implements KeyboardLayout.OnKeyBoardListener, TimerChange {
 
     public static final int LENGTH_CODED_NUMBER = 4;
     public static final String BUNDLE_INPUT = "BUNDLE_INPUT";
@@ -34,6 +37,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private RecyclerView mRecyclerView;
     private String mCodedNumber = "";
     private GameAdapter mAdapter;
+    private ImageView mTimerIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +47,10 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mDisplayLayout = findViewById(R.id.display_input);
         mKeyboardLayout = findViewById(R.id.keyboard_game);
         mKeyboardLayout.setOnKeyBoardListener(this);
+        mCustomTimer = new CustomTimer(this);
+        mTimerTV = findViewById(R.id.timerTV);
+        mTimerIV = findViewById(R.id.timerIV);
+        mTimerIV.setImageDrawable(getBaseContext().getResources().getDrawable(R.drawable.ic_timer));
         initRecyclerView();
     }
 
@@ -57,7 +65,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(BUNDLE_INPUT, mInput);
         outState.putString(BUNDLE_CODED_NUMBER, mCodedNumber);
-        super.onSaveInstanceState(outState);
+        super.onSaveInstanceState(mCustomTimer.saveState(outState));
     }
 
     @Override
@@ -66,6 +74,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mInput = savedInstanceState.getString(BUNDLE_INPUT);
         mCodedNumber = savedInstanceState.getString(BUNDLE_CODED_NUMBER);
         mDisplayLayout.setText(mInput);
+        this.mCustomTimer = CustomTimer.restoreTimer(savedInstanceState, this);
     }
 
     @Override
@@ -78,11 +87,14 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     public void onStartPressed() {
         mCodedNumber = NumberUtil.generateRandom(LENGTH_CODED_NUMBER);
         mAdapter.onClear();
+        mCustomTimer.reset();
+        mCustomTimer.start();
     }
 
     @Override
     public void onStopPressed() {
         mDisplayLayout.setText(mCodedNumber);
+        mCustomTimer.stop();
     }
 
     @Override
@@ -106,5 +118,16 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
         Move nextMove = new Move(mInput, cows, bulls);
         mAdapter.addNextMove(nextMove);
+    }
+
+    @Override
+    public void updateView(String text) {
+        runOnUiThread(new Runnable() {
+
+            @Override
+            public void run() {
+                (mTimerTV).setText(text);
+            }
+        });
     }
 }
