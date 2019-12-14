@@ -1,6 +1,8 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -11,6 +13,7 @@ import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.Move;
 import com.github.kiolk.cowsandbulls.logic.CustomTimer;
+import com.github.kiolk.cowsandbulls.ui.adapters.GameAdapter;
 import com.github.kiolk.cowsandbulls.ui.dialogs.PublishDialog;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
@@ -28,7 +31,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private DisplayLayout mDisplayLayout;
     private KeyboardLayout mKeyboardLayout;
     private String mInput = "";
+    private RecyclerView mRecyclerView;
     private String mCodedNumber = "";
+    private GameAdapter mAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,14 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mDisplayLayout = findViewById(R.id.display_input);
         mKeyboardLayout = findViewById(R.id.keyboard_game);
         mKeyboardLayout.setOnKeyBoardListener(this);
+        initRecyclerView();
+    }
+
+    private void initRecyclerView() {
+        mRecyclerView = findViewById(R.id.rv_moves);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
+        mAdapter = new GameAdapter();
+        mRecyclerView.setAdapter(mAdapter);
     }
 
     @Override
@@ -64,7 +77,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     @Override
     public void onStartPressed() {
         mCodedNumber = NumberUtil.generateRandom(LENGTH_CODED_NUMBER);
-        //TODO refresh recyclerView
+        mAdapter.onClear();
     }
 
     @Override
@@ -92,6 +105,6 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         }
 
         Move nextMove = new Move(mInput, cows, bulls);
-        //TODO pass object to adapter
+        mAdapter.addNextMove(nextMove);
     }
 }
