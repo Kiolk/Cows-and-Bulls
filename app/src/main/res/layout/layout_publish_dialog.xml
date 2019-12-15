@@ -114,6 +114,17 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tv_moves_title" />
 
+    <ProgressBar
+        android:id="@+id/pb_publish"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_cancel"
+        app:layout_constraintLeft_toRightOf="@+id/btn_cancel"
+        app:layout_constraintRight_toLeftOf="@+id/btn_publish"
+        app:layout_constraintTop_toBottomOf="@+id/et_nik_name_input"
+        tools:visibility="visible" />
+
     <TextView
         android:id="@+id/btn_publish"
         style="@style/AppTheme.DefaultText"
@@ -129,5 +140,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/et_nik_name_input" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

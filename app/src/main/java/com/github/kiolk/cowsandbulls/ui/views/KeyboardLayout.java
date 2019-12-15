@@ -137,23 +137,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
                 checkPress("0");
                 break;
             case R.id.btn_start:
-                if (!isStarted) {
-                    listener.onStartPressed();
-                    mStart.setText(R.string.stop);
-                    mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_red_button));
-                    isStarted = true;
-                    mEnter.setEnabled(false);
-                    mInput = "";
-                    listener.onKeyPressed(mInput);
-                    enableButtons(true);
-                } else {
-                    listener.onStopPressed();
-                    mStart.setText(R.string.start);
-                    mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_start_button));
-                    isStarted = false;
-                    mEnter.setEnabled(false);
-                    enableButtons(false);
-                }
+                onStateChanged();
                 break;
             case R.id.btn_clear:
                 if (!mInput.isEmpty()) {
@@ -171,9 +155,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
     }
 
     public void stop(){
-        mStart.setText(R.string.start);
-        isStarted = false;
-        mEnter.setEnabled(false);
+        onStateChanged();
     }
 
     private void checkPress(String pressedNumber) {
@@ -201,5 +183,25 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         mNine.setEnabled(enabled);
         mZero.setEnabled(enabled);
         mClean.setEnabled(enabled);
+    }
+
+    private void onStateChanged(){
+        if (!isStarted) {
+            listener.onStartPressed();
+            mStart.setText(R.string.stop);
+            mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_red_button));
+            isStarted = true;
+            mEnter.setEnabled(false);
+            mInput = "";
+            listener.onKeyPressed(mInput);
+            enableButtons(true);
+        } else {
+            listener.onStopPressed();
+            mStart.setText(R.string.start);
+            mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_start_button));
+            isStarted = false;
+            mEnter.setEnabled(false);
+            enableButtons(false);
+        }
     }
 }
