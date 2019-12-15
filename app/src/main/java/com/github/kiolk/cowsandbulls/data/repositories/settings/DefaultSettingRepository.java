@@ -25,6 +25,6 @@ public class DefaultSettingRepository implements SettingsRepository {
 
     @Override
     public String getIdentification() {
-        return getIdentification();
+        return local.getIdentification();
     }
 }

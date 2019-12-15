@@ -19,7 +19,8 @@
         android:textAlignment="center"
         android:textColor="@color/generalGray"
         android:textSize="20sp"
-        tools:text="1" />
+        tools:text="1"
+        android:layout_marginRight="15dp" />
 
     <TextView
         android:id="@+id/tv_moveCombination"
@@ -31,7 +32,8 @@
         android:fontFamily="@font/product_sans_regular"
         android:textAlignment="center"
         android:textColor="@color/generalGray"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginRight="17dp" />
 
     <ImageView
         android:id="@+id/iv_separator"
@@ -39,14 +41,17 @@
         android:layout_height="24dp"
         android:layout_gravity="center"
         android:layout_marginEnd="17dp"
-        android:background="@color/lightGray" />
+        android:background="@color/lightGray"
+        android:layout_marginRight="17dp" />
 
     <ImageView
         android:id="@+id/iv_cow_icon"
         android:layout_width="25dp"
         android:layout_height="25dp"
         android:layout_gravity="center"
-        android:layout_marginEnd="5dp"/>
+        android:src="@drawable/ic_cow"
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp" />
 
     <TextView
         android:id="@+id/tv_cows_count"
@@ -57,14 +62,17 @@
         android:fontFamily="@font/product_sans_regular"
         android:textAlignment="center"
         android:textColor="@color/generalGray"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginRight="17dp" />
 
     <ImageView
         android:id="@+id/iv_bull_icon"
         android:layout_width="25dp"
         android:layout_height="25dp"
+        android:src="@drawable/ic_bull"
         android:layout_gravity="center"
-        android:layout_marginEnd="5dp"/>
+        android:layout_marginEnd="5dp"
+        android:layout_marginRight="5dp" />
 
     <TextView
         android:id="@+id/tv_bulls_count"
@@ -75,6 +83,7 @@
         android:fontFamily="@font/product_sans_regular"
         android:textAlignment="center"
         android:textColor="@color/generalGray"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:layout_marginRight="157dp" />
 
 </LinearLayout>
