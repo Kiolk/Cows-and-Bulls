@@ -113,13 +113,13 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         Log.d("MyLogs", "onEnterPressed: cows " + cows + " bulls: " + bulls);
 
         if (bulls == LENGTH_CODED_NUMBER) {
-            mKeyboardLayout.stop();
             mDisplayLayout.setText(mCodedNumber);
             mCustomTimer.stop();
             PublishDialog dialog = new PublishDialog();
             dialog.setResult(new GameResult(mMoves, mCustomTimer.getTimeLong()));
             mMoves = 0;
             dialog.show(getSupportFragmentManager(), PublishDialog.TAG);
+            mKeyboardLayout.stop();
         }
 
         Move nextMove = new Move(mInput, cows, bulls);

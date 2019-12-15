@@ -1,7 +1,11 @@
-package com.github.kiolk.cowsandbulls.data.repositories.settings;
+package com.github.kiolk.cowsandbulls.data.repositories.settings.local;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.github.kiolk.cowsandbulls.data.repositories.settings.SettingsDataSource;
+
+import java.util.UUID;
 
 public class LocalSettingsDataSource implements SettingsDataSource {
 
@@ -36,6 +40,12 @@ public class LocalSettingsDataSource implements SettingsDataSource {
 
     @Override
     public String getIdentification() {
-        return preferences.getString(IDENTIFICATION, null);
+        String uuid = preferences.getString(IDENTIFICATION, null);
+        if(uuid == null){
+            uuid = UUID.randomUUID().toString();
+            setIdentification(uuid);
+        }
+
+        return uuid;
     }
 }

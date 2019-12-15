@@ -134,24 +134,15 @@ public class PublishDialog extends DialogFragment {
         resultRemote.setDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).format(new Date()));
         resultRemote.setMoves(result.getMoves());
         resultRemote.setUserName(userName);
-        resultRemote.setUuid("hkdjfksjfhsdnbfsdkjfk"); //TODO implement logic for getting UUID
+        String uuid = App.getSettingsRepository().getIdentification();
+        resultRemote.setUuid(uuid);
         resultRemote.setTime(result.getTime());
 
         Handler handler = new Handler();
 
-
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                App.getGameRepository().publishResult(resultRemote);
-                //TODO implement logic for publish result
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        dialog.dismiss();
-                    }
-                });
-            }
+        new Thread(() -> {
+            App.getGameRepository().publishResult(resultRemote);
+            handler.post(() -> dialog.dismiss());
         }).start();
     }
 }

@@ -6,7 +6,7 @@ import com.github.kiolk.cowsandbulls.data.repositories.game.DefaultGameRepositor
 import com.github.kiolk.cowsandbulls.data.repositories.game.GameRepository;
 import com.github.kiolk.cowsandbulls.data.repositories.game.remote.RemoteGameDataSource;
 import com.github.kiolk.cowsandbulls.data.repositories.settings.DefaultSettingRepository;
-import com.github.kiolk.cowsandbulls.data.repositories.settings.LocalSettingsDataSource;
+import com.github.kiolk.cowsandbulls.data.repositories.settings.local.LocalSettingsDataSource;
 import com.github.kiolk.cowsandbulls.data.repositories.settings.SettingsRepository;
 
 public class App extends Application {
