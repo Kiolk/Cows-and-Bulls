@@ -1,5 +1,6 @@
 package com.github.kiolk.cowsandbulls.ui.dialogs;
 
+import android.app.Application;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -62,6 +63,8 @@ public class PublishDialog extends DialogFragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.layout_publish_dialog, null);
 
+        String name = App.getSettingsRepository().getUserName();
+
         builder.setView(view);
         btnCancel = view.findViewById(R.id.btn_cancel);
         btnCancel.setOnClickListener(v -> onCancel());
@@ -71,10 +74,10 @@ public class PublishDialog extends DialogFragment {
         ((TextView) view.findViewById(R.id.tv_time_value)).setText(new SimpleDateFormat("mm:ss", Locale.getDefault()).format(new Date(result.getTime() * 1000)));
         ((TextView) view.findViewById(R.id.tv_moves_value)).setText(String.valueOf(result.getMoves()));
         input = view.findViewById(R.id.et_nik_name_input);
-        String name = null; //TODO implement logic for get preview value
 
         if (name != null) {
             input.setText(name);
+            userName = name;
         } else {
             input.setHint(R.string.your_nick_name);
         }
@@ -102,6 +105,7 @@ public class PublishDialog extends DialogFragment {
     }
 
     private void onCancel() {
+        App.getSettingsRepository().setUserName(userName);
         dialog.dismiss();
 
     }
@@ -114,6 +118,8 @@ public class PublishDialog extends DialogFragment {
             }
             return;
         }
+
+        App.getSettingsRepository().setUserName(userName);
 
         if(btnCancel != null && btnPublish != null){
             btnCancel.setEnabled(false);

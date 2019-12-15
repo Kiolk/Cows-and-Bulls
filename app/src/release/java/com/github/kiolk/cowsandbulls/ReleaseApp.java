@@ -6,7 +6,7 @@ import com.crashlytics.android.Crashlytics;
 
 import io.fabric.sdk.android.Fabric;
 
-public class ReleaseApp extends Application {
+public class ReleaseApp extends App {
 
     @Override
     public void onCreate() {
