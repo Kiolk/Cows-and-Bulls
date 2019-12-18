@@ -86,6 +86,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     @Override
     public void onStartPressed() {
         mCodedNumber = NumberUtil.generateRandom(LENGTH_CODED_NUMBER);
+        mAdapter.setStartPressed();
         mAdapter.onClear();
         mCustomTimer.reset();
         mCustomTimer.start();

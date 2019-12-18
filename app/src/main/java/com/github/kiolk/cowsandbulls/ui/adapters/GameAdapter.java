@@ -17,13 +17,12 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
     private List<Move> moves;
     private final int VIEW_TYPE_EMPTY = 0;
     private final int VIEW_TYPE_NORMAL = 1;
-
+    private boolean isStartPressed = false;
 
     public GameAdapter() {
         moves = new ArrayList<>();
         notifyDataSetChanged();
     }
-
 
     @Override
     public int getItemViewType(int position) {
@@ -38,7 +37,7 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View tempView;
-        if (viewType == VIEW_TYPE_EMPTY) {
+        if (viewType == VIEW_TYPE_EMPTY && !isStartPressed) {
             tempView = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_view_rules_item, parent, false);
             return new ViewHolder(tempView);
 
@@ -59,7 +58,7 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
 
     @Override
     public int getItemCount() {
-        if (moves.size() == 0){
+        if (moves.size() == 0 && !isStartPressed){
             return 1;
         }
         return moves.size();
@@ -68,6 +67,10 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
     public void addNextMove(Move next) {
         moves.add(next);
         notifyDataSetChanged();
+    }
+
+    public void  setStartPressed(){
+        isStartPressed = true;
     }
 
     public void onClear() {
