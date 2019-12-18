@@ -16,7 +16,6 @@
         tools:ignore="GoogleAppIndexingWarning">
         <activity
             android:name=".ui.screens.GameActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

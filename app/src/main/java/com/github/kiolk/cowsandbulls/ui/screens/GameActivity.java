@@ -1,32 +1,34 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
-import androidx.annotation.NonNull;
+import android.os.Bundle;
+import android.os.Parcelable;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
-import android.util.Log;
-import android.widget.ImageView;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.Move;
 import com.github.kiolk.cowsandbulls.logic.CustomTimer;
+import com.github.kiolk.cowsandbulls.logic.TimerChange;
 import com.github.kiolk.cowsandbulls.ui.adapters.GameAdapter;
 import com.github.kiolk.cowsandbulls.ui.dialogs.PublishDialog;
-import com.github.kiolk.cowsandbulls.logic.TimerChange;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
+
+import java.util.ArrayList;
 
 public class GameActivity extends AppCompatActivity implements KeyboardLayout.OnKeyBoardListener, TimerChange {
 
     public static final int LENGTH_CODED_NUMBER = 4;
     public static final String BUNDLE_INPUT = "BUNDLE_INPUT";
     public static final String BUNDLE_CODED_NUMBER = "BUNDLE_CODED_NUMBER";
+    public static final String BUNDLE_MOVES = "BUNDLE_MOVES";
+    public static final String BUNDLE_MOVES_VALUES = "BUNDLE_MOVES_VALUES";
 
     private CustomTimer mCustomTimer;
     private TextView mTimerTV;
@@ -37,7 +39,6 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private RecyclerView mRecyclerView;
     private String mCodedNumber = "";
     private GameAdapter mAdapter;
-    private ImageView mTimerIV;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,8 +50,6 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mKeyboardLayout.setOnKeyBoardListener(this);
         mCustomTimer = new CustomTimer(this);
         mTimerTV = findViewById(R.id.timerTV);
-        mTimerIV = findViewById(R.id.timerIV);
-        mTimerIV.setImageDrawable(getBaseContext().getResources().getDrawable(R.drawable.ic_timer));
         initRecyclerView();
     }
 
@@ -65,6 +64,8 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     protected void onSaveInstanceState(Bundle outState) {
         outState.putString(BUNDLE_INPUT, mInput);
         outState.putString(BUNDLE_CODED_NUMBER, mCodedNumber);
+        outState.putInt(BUNDLE_MOVES, mMoves);
+        outState.putParcelableArrayList(BUNDLE_MOVES_VALUES, (ArrayList<? extends Parcelable>) mAdapter.getMoves());
         super.onSaveInstanceState(mCustomTimer.saveState(outState));
     }
 
@@ -74,6 +75,8 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mInput = savedInstanceState.getString(BUNDLE_INPUT);
         mCodedNumber = savedInstanceState.getString(BUNDLE_CODED_NUMBER);
         mDisplayLayout.setText(mInput);
+        mMoves = savedInstanceState.getInt(BUNDLE_MOVES);
+        mAdapter.setMoves(savedInstanceState.getParcelableArrayList(BUNDLE_MOVES_VALUES));
         this.mCustomTimer = CustomTimer.restoreTimer(savedInstanceState, this);
     }
 
@@ -97,6 +100,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     public void onStopPressed() {
         mDisplayLayout.setText(mCodedNumber);
         mCustomTimer.stop();
+        mInput = mCodedNumber;
         mMoves = 0;
     }
 
@@ -109,8 +113,6 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mMoves++;
         int cows = NumberUtil.getCowsNumber(mCodedNumber, mInput);
         int bulls = NumberUtil.getBullsNumber(mCodedNumber, mInput);
-
-        Log.d("MyLogs", "onEnterPressed: cows " + cows + " bulls: " + bulls);
 
         if (bulls == LENGTH_CODED_NUMBER) {
             mDisplayLayout.setText(mCodedNumber);
@@ -129,12 +131,6 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     @Override
     public void updateView(String text) {
-        runOnUiThread(new Runnable() {
-
-            @Override
-            public void run() {
-                (mTimerTV).setText(text);
-            }
-        });
+        runOnUiThread(() -> mTimerTV.setText(text));
     }
 }

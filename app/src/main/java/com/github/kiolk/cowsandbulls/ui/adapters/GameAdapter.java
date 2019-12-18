@@ -86,6 +86,14 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
         notifyDataSetChanged();
     }
 
+    public List<Move> getMoves() {
+        return moves;
+    }
+
+    public void setMoves(List<Move> moves) {
+        this.moves = moves;
+    }
+
     static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView mMoveNumber;

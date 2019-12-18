@@ -2,6 +2,8 @@ package com.github.kiolk.cowsandbulls.ui.views;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.github.kiolk.cowsandbulls.R;
@@ -203,5 +206,82 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
             mEnter.setEnabled(false);
             enableButtons(false);
         }
+    }
+
+    @Nullable
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable state = super.onSaveInstanceState();
+        SavedState ss = new SavedState(state);
+
+        ss.isStartedValue = isStarted;
+        ss.inputValue = mInput;
+
+        return ss;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        SavedState ss = (SavedState) state;
+        super.onRestoreInstanceState(state);
+
+        isStarted = ss.isStartedValue;
+        mInput = ss.inputValue;
+
+        if (isStarted) {
+            mStart.setText(R.string.stop);
+            mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_red_button));
+            mEnter.setEnabled(false);
+            enableButtons(true);
+
+            if(mInput .length() == 4){
+                mEnter.setEnabled(true);
+            }
+        } else {
+            mStart.setText(R.string.start);
+            mStart.setBackground(getContext().getResources().getDrawable(R.drawable.bg_start_button));
+            mEnter.setEnabled(false);
+            enableButtons(false);
+        }
+    }
+
+    public class SavedState extends BaseSavedState{
+
+        private Boolean isStartedValue = false;
+        private String inputValue = "";
+
+        private SavedState(Parcel source) {
+            super(source);
+
+            isStartedValue = source.readInt() == 1;
+            inputValue = source.readString();
+        }
+
+        public SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeInt(isStarted ? 1 : 0);
+            out.writeString(mInput);
+        }
+
+        @NonNull
+        @Override
+        public String toString() {
+            return super.toString();
+        }
+
+        public final Creator CREATOR = new Creator() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 }
