@@ -21,4 +21,10 @@
     <string name="title_dialog">You win!\nWant to publish your result?</string>
     <string name="your_nick_name">Your nickname</string>
     <string name="start_time">00:00</string>
+    <string name="rules">How to play?\n
+        You need to guess a four-digit number with non-repeating digits.\n
+        After entering the estimated number you will be given the answer where number of:\n
+        cows - numbers are guessed without matching their positions, \n
+        bulls - numbers are guessed right up to the position. \n
+        To start click \"Start\"</string>
 </resources>

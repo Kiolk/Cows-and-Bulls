@@ -28,7 +28,6 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     public static final String BUNDLE_INPUT = "BUNDLE_INPUT";
     public static final String BUNDLE_CODED_NUMBER = "BUNDLE_CODED_NUMBER";
 
-
     private CustomTimer mCustomTimer;
     private TextView mTimerTV;
     private DisplayLayout mDisplayLayout;
@@ -87,6 +86,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     @Override
     public void onStartPressed() {
         mCodedNumber = NumberUtil.generateRandom(LENGTH_CODED_NUMBER);
+        mAdapter.setStartPressed();
         mAdapter.onClear();
         mCustomTimer.reset();
         mCustomTimer.start();
