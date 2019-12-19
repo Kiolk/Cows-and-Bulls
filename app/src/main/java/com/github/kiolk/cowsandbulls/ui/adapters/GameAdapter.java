@@ -1,14 +1,22 @@
 package com.github.kiolk.cowsandbulls.ui.adapters;
 
+import android.content.res.Resources;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.RecyclerView.Adapter;
+
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.Move;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -103,7 +111,16 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
         }
 
         private void onBindRules() {
-            mRules.setText(R.string.rules);
+            Resources resources = itemView.getContext().getResources();
+            String text = resources.getString(R.string.rules);
+            Spannable span = new SpannableString(text);
+            String coloredStartText = resources.getString(R.string.start_part);
+            String howToPlayText = resources.getString(R.string.how_to_play_part);
+            int length = text.length();
+            span.setSpan(new ForegroundColorSpan(itemView.getContext().getResources().getColor(R.color.middleBlue)), length - coloredStartText.length() - 1, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
+            span.setSpan(bss, 0, howToPlayText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            mRules.setText(span);
         }
     }
 }

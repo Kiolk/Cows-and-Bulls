@@ -4,8 +4,10 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+    <color name="black">#000000</color>
     <color name="generalBlue">#4285F4</color>
-    <color name="lightBlue">#E6F0FF</color>
+    <color name="middleBlue">#327AFF</color>
+    <color name="lightBlue">#E6F0FF</color>#
     <color name="generalGray">#969696</color>
     <color name="lightGray">#E0E0E0</color>
     <color name="transparentGray">#59E0E0E0</color>
@@ -13,5 +15,4 @@
     <color name="lightRed">#FCC8BB</color>
     <color name="white">#FFFFFF</color>
     <color name="transparent">#00000000</color>
-
 </resources>
