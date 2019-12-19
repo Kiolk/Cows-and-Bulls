@@ -21,6 +21,7 @@ import com.github.kiolk.cowsandbulls.App;
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.GameResultRemote;
+import com.github.kiolk.cowsandbulls.utils.InternetConnection;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -110,12 +111,19 @@ public class PublishDialog extends DialogFragment {
 
     }
 
-
     private void onPublish() {
+        if(getContext() == null){
+            return;
+        }
+
         if(TextUtils.isEmpty(userName)){
             if(input != null){
                 input.setBackground(getContext().getResources().getDrawable(R.drawable.bg_edit_text_background_error));
             }
+            return;
+        }
+
+        if(!InternetConnection.isInternetAvialable(getContext())){
             return;
         }
 
