@@ -214,8 +214,8 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         Parcelable state = super.onSaveInstanceState();
         SavedState ss = new SavedState(state);
 
-        ss.isStartedValue = isStarted;
-        ss.inputValue = mInput;
+        ss.setStartedValue(isStarted);
+        ss.setInputValue(mInput);
 
         return ss;
     }
@@ -245,7 +245,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         }
     }
 
-    public class SavedState extends BaseSavedState{
+    public static class SavedState extends BaseSavedState{
 
         private Boolean isStartedValue = false;
         private String inputValue = "";
@@ -261,11 +261,27 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
             super(superState);
         }
 
+        public Boolean getStartedValue() {
+            return isStartedValue;
+        }
+
+        public void setStartedValue(Boolean startedValue) {
+            isStartedValue = startedValue;
+        }
+
+        public String getInputValue() {
+            return inputValue;
+        }
+
+        public void setInputValue(String inputValue) {
+            this.inputValue = inputValue;
+        }
+
         @Override
         public void writeToParcel(Parcel out, int flags) {
             super.writeToParcel(out, flags);
-            out.writeInt(isStarted ? 1 : 0);
-            out.writeString(mInput);
+            out.writeInt(isStartedValue ? 1 : 0);
+            out.writeString(inputValue);
         }
 
         @NonNull
@@ -274,7 +290,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
             return super.toString();
         }
 
-        public final Creator CREATOR = new Creator() {
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
             public SavedState createFromParcel(Parcel in) {
                 return new SavedState(in);
             }
