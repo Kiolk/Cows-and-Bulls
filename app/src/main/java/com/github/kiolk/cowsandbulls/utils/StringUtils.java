@@ -10,8 +10,8 @@ public class StringUtils {
 
     public static String getTime(long time){
         if(time > 3600){
-            return new SimpleDateFormat(TO_HH_MM_SS, Locale.getDefault()).format(time);
+            return new SimpleDateFormat(TO_HH_MM_SS, Locale.getDefault()).format(time * 1000);
         }
-        return new SimpleDateFormat(TO_MM_SS, Locale.getDefault()).format(time);
+        return new SimpleDateFormat(TO_MM_SS, Locale.getDefault()).format(time * 1000);
     }
 }

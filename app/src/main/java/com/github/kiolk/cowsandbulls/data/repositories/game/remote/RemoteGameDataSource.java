@@ -3,13 +3,17 @@ package com.github.kiolk.cowsandbulls.data.repositories.game.remote;
 import android.util.Log;
 
 import com.github.kiolk.cowsandbulls.data.PeriodType;
+import com.github.kiolk.cowsandbulls.data.models.result.Result;
 import com.github.kiolk.cowsandbulls.data.models.result.remote.ResultRemote;
 import com.github.kiolk.cowsandbulls.data.repositories.game.GameDataSource;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -70,16 +74,49 @@ public class RemoteGameDataSource implements GameDataSource {
 
     @Override
     public List<ResultRemote> getBestResults(PeriodType type) {
-        List<ResultRemote> result =new ArrayList<>();
-        for (int i = 0; i < 20; i++) {
-            ResultRemote resultRemote = new ResultRemote();
-            resultRemote.setDate("");
-            resultRemote.setUserName("Yauheb");
-            resultRemote.setMoves(new Random().nextInt(20));
-            resultRemote.setTime(new Random().nextInt(20000));
-            result.add(resultRemote);
+        String stringUrl = "https://us-central1-cowsandbulls-acdea.cloudfunctions.net/best?period=" + type.getValue();
+        String inputLine;
+        List<ResultRemote> results = new ArrayList<>();
+        try {
+            //Create a URL object holding our url
+            URL myUrl = new URL(stringUrl);         //Create a connection
+            HttpURLConnection connection = (HttpURLConnection) myUrl.openConnection();         //Set methods and timeouts
+            connection.setRequestMethod("GET");
+            connection.setReadTimeout(10000);
+            connection.setConnectTimeout(10000);
+
+            connection.connect();         //Create a new InputStreamReader
+            InputStreamReader streamReader = new InputStreamReader(connection.getInputStream());         //Create a new buffered reader and String Builder
+            BufferedReader reader = new BufferedReader(streamReader);
+            StringBuilder stringBuilder = new StringBuilder();         //Check if the line we are reading is not null
+            while ((inputLine = reader.readLine()) != null) {
+                stringBuilder.append(inputLine);
+            }         //Close our InputStream and Buffered reader
+            reader.close();
+            streamReader.close();         //Set our result equal to our stringBuilder
+            String result = stringBuilder.toString();
+            connection.disconnect();
+
+            JSONArray array = new JSONArray(result);
+
+            for (int i = 0; i < array.length(); i++) {
+                JSONObject object = array.getJSONObject(i);
+                ResultRemote remote = new ResultRemote();
+                remote.setTime(object.getLong("time"));
+                remote.setMoves(object.getInt("moves"));
+                remote.setUserName(object.getString("login"));
+                remote.setUuid(object.getString("uuid"));
+                remote.setDate(object.getString("date"));
+                results.add(remote);
+            }
+
+            Log.d("MyLogs", "getBestResults: " + result);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
-        return result;
+        return results;
     }
 }
