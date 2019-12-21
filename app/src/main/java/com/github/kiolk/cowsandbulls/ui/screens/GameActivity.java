@@ -6,8 +6,22 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.TranslateAnimation;
+import android.widget.FrameLayout;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
@@ -16,6 +30,8 @@ import com.github.kiolk.cowsandbulls.logic.CustomTimer;
 import com.github.kiolk.cowsandbulls.logic.TimerChange;
 import com.github.kiolk.cowsandbulls.ui.adapters.GameAdapter;
 import com.github.kiolk.cowsandbulls.ui.dialogs.PublishDialog;
+import com.github.kiolk.cowsandbulls.logic.TimerChange;
+import com.github.kiolk.cowsandbulls.ui.screens.result.BestResultFragment;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
@@ -40,6 +56,10 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private RecyclerView mRecyclerView;
     private String mCodedNumber = "";
     private GameAdapter mAdapter;
+    private ImageView mTimerIV;
+    private FrameLayout mContainer;
+    private ImageButton mResult;
+    private BestResultFragment mBestFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +72,11 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mCustomTimer = new CustomTimer(this);
         mTimerTV = findViewById(R.id.timerTV);
         initRecyclerView();
+        mContainer = findViewById(R.id.fl_container);
+        mResult = findViewById(R.id.btn_result);
+        mResult.setOnClickListener(v -> showResults());
+
+        mResult = findViewById(R.id.btn_result);
     }
 
     private void initRecyclerView() {
@@ -133,5 +158,49 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     @Override
     public void updateView(String text) {
         runOnUiThread(() -> mTimerTV.setText(text));
+    }
+
+    private void showResults() {
+        mContainer.setVisibility(View.VISIBLE);
+
+        if(mBestFragment == null){
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            mBestFragment = new BestResultFragment();
+            transaction.add(R.id.fl_container, mBestFragment, BestResultFragment.TAG);
+            transaction.commitNow();
+        }else{
+            //TODO refresh
+        }
+
+        TranslateAnimation animation = new TranslateAnimation(mContainer.getWidth(), 0, 0, 0);
+        animation.setDuration(300);
+        animation.setFillAfter(true);
+        mContainer.startAnimation(animation);
+    }
+
+    public void hideResults() {
+        TranslateAnimation animation = new TranslateAnimation(0, mContainer.getWidth(), 0, 0);
+        animation.setDuration(300);
+        animation.setFillAfter(true);
+        mContainer.startAnimation(animation);
+
+        mContainer.setLayoutAnimationListener(new Animation.AnimationListener(){
+
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                mContainer.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
     }
 }

@@ -1,6 +1,9 @@
 package com.github.kiolk.cowsandbulls.data.repositories.game;
 
-import com.github.kiolk.cowsandbulls.data.models.GameResultRemote;
+import com.github.kiolk.cowsandbulls.data.PeriodType;
+import com.github.kiolk.cowsandbulls.data.models.result.remote.ResultRemote;
+
+import java.util.List;
 
 public class DefaultGameRepository implements GameRepository {
 
@@ -11,7 +14,12 @@ public class DefaultGameRepository implements GameRepository {
     }
 
     @Override
-    public void publishResult(GameResultRemote result) {
+    public void publishResult(ResultRemote result) {
         remote.publishResult(result);
+    }
+
+    @Override
+    public List<ResultRemote> getBestResults(PeriodType type) {
+        return remote.getBestResults(type);
     }
 }

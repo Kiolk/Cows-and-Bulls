@@ -1,6 +1,5 @@
 package com.github.kiolk.cowsandbulls.ui.dialogs;
 
-import android.app.Application;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,7 +19,7 @@ import androidx.fragment.app.DialogFragment;
 import com.github.kiolk.cowsandbulls.App;
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
-import com.github.kiolk.cowsandbulls.data.models.GameResultRemote;
+import com.github.kiolk.cowsandbulls.data.models.result.remote.ResultRemote;
 import com.github.kiolk.cowsandbulls.utils.InternetConnection;
 
 import java.text.SimpleDateFormat;
@@ -138,7 +137,7 @@ public class PublishDialog extends DialogFragment {
             pbProgress.setVisibility(View.VISIBLE);
         }
 
-        GameResultRemote resultRemote = new GameResultRemote();
+        ResultRemote resultRemote = new ResultRemote();
         resultRemote.setDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).format(new Date()));
         resultRemote.setMoves(result.getMoves());
         resultRemote.setUserName(userName);

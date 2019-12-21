@@ -29,4 +29,10 @@
         To start click \"Start\"</string>
     <string name="start_part">Start</string>
     <string name="how_to_play_part">How to play?</string>
+
+    <!-- fragment_result   -->
+    <string name="result_tab_today">Today</string>
+    <string name="result_tab_week">Week</string>
+    <string name="result_tab_month">Month</string>
+    <string name="result_tab_year">Year</string>
 </resources>

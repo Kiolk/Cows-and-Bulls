@@ -1,6 +1,6 @@
-package com.github.kiolk.cowsandbulls.data.models;
+package com.github.kiolk.cowsandbulls.data.models.result;
 
-public class GameResultRemote {
+public class Result {
 
     private int moves;
 
@@ -12,7 +12,9 @@ public class GameResultRemote {
 
     private String uuid;
 
-    public GameResultRemote() {
+    private boolean isOwn;
+
+    public Result() {
     }
 
     public int getMoves() {
@@ -53,5 +55,13 @@ public class GameResultRemote {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public boolean isOwn() {
+        return isOwn;
+    }
+
+    public void setOwn(boolean own) {
+        isOwn = own;
     }
 }

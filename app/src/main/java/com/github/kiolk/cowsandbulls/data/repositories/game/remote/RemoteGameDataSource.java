@@ -2,23 +2,25 @@ package com.github.kiolk.cowsandbulls.data.repositories.game.remote;
 
 import android.util.Log;
 
-import com.github.kiolk.cowsandbulls.data.models.GameResultRemote;
+import com.github.kiolk.cowsandbulls.data.PeriodType;
+import com.github.kiolk.cowsandbulls.data.models.result.remote.ResultRemote;
 import com.github.kiolk.cowsandbulls.data.repositories.game.GameDataSource;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class RemoteGameDataSource implements GameDataSource {
 
     @Override
-    public void publishResult(GameResultRemote result) {
+    public void publishResult(ResultRemote result) {
         String stringUrl = "https://us-central1-cowsandbulls-acdea.cloudfunctions.net/result";
         String inputLine;
         try {
@@ -64,5 +66,20 @@ public class RemoteGameDataSource implements GameDataSource {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public List<ResultRemote> getBestResults(PeriodType type) {
+        List<ResultRemote> result =new ArrayList<>();
+        for (int i = 0; i < 20; i++) {
+            ResultRemote resultRemote = new ResultRemote();
+            resultRemote.setDate("");
+            resultRemote.setUserName("Yauheb");
+            resultRemote.setMoves(new Random().nextInt(20));
+            resultRemote.setTime(new Random().nextInt(20000));
+            result.add(resultRemote);
+        }
+
+        return result;
     }
 }
