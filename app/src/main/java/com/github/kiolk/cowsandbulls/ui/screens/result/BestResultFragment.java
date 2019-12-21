@@ -69,4 +69,14 @@ public class BestResultFragment extends Fragment {
 
         return view;
     }
+
+    public void onRefresh(){
+        adapter.onRefresh();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        adapter.onDestroy();
+    }
 }

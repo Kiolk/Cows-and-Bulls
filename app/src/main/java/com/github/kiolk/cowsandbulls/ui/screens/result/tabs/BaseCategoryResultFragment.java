@@ -41,6 +41,9 @@ public abstract class BaseCategoryResultFragment extends Fragment {
        return view;
     }
 
+    public void onRefresh(){
+        onLoadData();
+    }
 
     private void onLoadData(){
         GetBestResultUseCase useCase = new GetBestResultUseCase(new GetBestResultUseCase.Params(getType()), new ResultListener<List<Result>>() {

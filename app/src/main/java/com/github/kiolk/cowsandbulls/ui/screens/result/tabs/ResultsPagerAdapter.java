@@ -16,8 +16,19 @@ import com.github.kiolk.cowsandbulls.data.PeriodType;
 
 public class ResultsPagerAdapter extends FragmentPagerAdapter {
 
+    private TodayResultFragment mTodayFragment;
+    private WeekResultFragment mWeekResultFragment;
+    private MonthResultFragment mMonthFragment;
+    private YearResultFragment mYearResultFragment;
+
+
+
     public ResultsPagerAdapter(@NonNull FragmentManager fm) {
         super(fm);
+        mTodayFragment = new TodayResultFragment();
+        mWeekResultFragment = new WeekResultFragment();
+        mMonthFragment = new MonthResultFragment();
+        mYearResultFragment = new YearResultFragment();
     }
 
     @NonNull
@@ -27,16 +38,16 @@ public class ResultsPagerAdapter extends FragmentPagerAdapter {
 
         switch (position) {
             case 0:
-                fragment = new TodayResultFragment();
+                fragment = mTodayFragment;
                 break;
             case 1:
-                fragment = new WeekResultFragment();
+                fragment = mWeekResultFragment;
                 break;
             case 2:
-                fragment = new MonthResultFragment();
+                fragment = mMonthFragment;
                 break;
             default:
-                fragment = new YearResultFragment();
+                fragment = mYearResultFragment;
         }
         return fragment;
     }
@@ -98,5 +109,20 @@ public class ResultsPagerAdapter extends FragmentPagerAdapter {
         tabTitle.setText(title);
 
         return view;
+    }
+
+    public void onRefresh() {
+        mTodayFragment.onRefresh();
+        mWeekResultFragment.onRefresh();
+        mMonthFragment.onRefresh();
+        mYearResultFragment.onRefresh();
+    }
+
+    public void onDestroy() {
+        FragmentManager fm = mTodayFragment.requireFragmentManager();
+        fm.beginTransaction().remove(mTodayFragment).commit();
+        fm.beginTransaction().remove(mMonthFragment).commit();
+        fm.beginTransaction().remove(mWeekResultFragment).commit();
+        fm.beginTransaction().remove(mYearResultFragment).commit();
     }
 }

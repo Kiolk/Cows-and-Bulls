@@ -1,5 +1,7 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.widget.TextView;
@@ -13,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
@@ -71,6 +74,8 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mKeyboardLayout.setOnKeyBoardListener(this);
         mCustomTimer = new CustomTimer(this);
         mTimerTV = findViewById(R.id.timerTV);
+        mTimerIV = findViewById(R.id.timerIV);
+        mTimerIV.setImageDrawable(getBaseContext().getResources().getDrawable(R.drawable.ic_timer));
         initRecyclerView();
         mContainer = findViewById(R.id.fl_container);
         mResult = findViewById(R.id.btn_result);
@@ -164,14 +169,21 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mContainer.setVisibility(View.VISIBLE);
 
         if(mBestFragment == null){
-            FragmentManager manager = getSupportFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
             mBestFragment = new BestResultFragment();
-            transaction.add(R.id.fl_container, mBestFragment, BestResultFragment.TAG);
-            transaction.commitNow();
         }else{
-            //TODO refresh
+//            FragmentManager manager = getSupportFragmentManager();
+//            FragmentTransaction transaction = manager.beginTransaction();
+//            transaction.add(R.id.fl_container, mBestFragment);
+//            transaction.addToBackStack(null);
+//            transaction.commit();
+            mBestFragment.onRefresh();
         }
+
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction transaction = manager.beginTransaction();
+        transaction.add(R.id.fl_container, mBestFragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
 
         TranslateAnimation animation = new TranslateAnimation(mContainer.getWidth(), 0, 0, 0);
         animation.setDuration(300);
@@ -183,10 +195,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         TranslateAnimation animation = new TranslateAnimation(0, mContainer.getWidth(), 0, 0);
         animation.setDuration(300);
         animation.setFillAfter(true);
-        mContainer.startAnimation(animation);
-
-        mContainer.setLayoutAnimationListener(new Animation.AnimationListener(){
-
+        animation.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
 
@@ -194,6 +203,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
             @Override
             public void onAnimationEnd(Animation animation) {
+                getSupportFragmentManager().popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE);
                 mContainer.setVisibility(View.GONE);
             }
 
@@ -202,5 +212,17 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
             }
         });
+
+        mContainer.startAnimation(animation);
+    }
+
+    @Override
+    public void onRestoreInstanceState(@Nullable Bundle savedInstanceState, @Nullable PersistableBundle persistentState) {
+        super.onRestoreInstanceState(savedInstanceState, persistentState);
+    }
+
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
+        super.onSaveInstanceState(outState, outPersistentState);
     }
 }
