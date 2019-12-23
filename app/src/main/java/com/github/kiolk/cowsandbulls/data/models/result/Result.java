@@ -1,6 +1,9 @@
 package com.github.kiolk.cowsandbulls.data.models.result;
 
-public class Result {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class Result implements Parcelable {
 
     private int moves;
 
@@ -64,4 +67,40 @@ public class Result {
     public void setOwn(boolean own) {
         isOwn = own;
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.moves);
+        dest.writeLong(this.time);
+        dest.writeString(this.userName);
+        dest.writeString(this.date);
+        dest.writeString(this.uuid);
+        dest.writeByte(this.isOwn ? (byte) 1 : (byte) 0);
+    }
+
+    protected Result(Parcel in) {
+        this.moves = in.readInt();
+        this.time = in.readLong();
+        this.userName = in.readString();
+        this.date = in.readString();
+        this.uuid = in.readString();
+        this.isOwn = in.readByte() != 0;
+    }
+
+    public static final Creator<Result> CREATOR = new Creator<Result>() {
+        @Override
+        public Result createFromParcel(Parcel source) {
+            return new Result(source);
+        }
+
+        @Override
+        public Result[] newArray(int size) {
+            return new Result[size];
+        }
+    };
 }

@@ -13,6 +13,8 @@ import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.result.Result;
 import com.github.kiolk.cowsandbulls.utils.StringUtils;
 
+import java.util.List;
+
 public class CategoryResultAdapter extends BaseEmptyPlaceHolderAdapter<Result>{
 
     @NonNull
@@ -34,6 +36,12 @@ public class CategoryResultAdapter extends BaseEmptyPlaceHolderAdapter<Result>{
         }else{
             holder.onViewBound(data.get(position));
         }
+    }
+
+    public void setData(List<Result> newData) {
+            data.clear();
+            data.addAll(newData);
+            notifyDataSetChanged();
     }
 
     public class CategoryResultViewHolder extends BaseViewHolder<Result>{

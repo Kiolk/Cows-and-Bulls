@@ -1,5 +1,7 @@
 package com.github.kiolk.cowsandbulls.ui.adapters;
 
+import android.os.Parcelable;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
@@ -13,5 +15,9 @@ public abstract class BaseAdapter<T> extends RecyclerView.Adapter<BaseViewHolder
         data.clear();
         data.addAll(newData);
         notifyDataSetChanged();
+    }
+
+    public List<T> getData(){
+        return data;
     }
 }

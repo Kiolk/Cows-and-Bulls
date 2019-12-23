@@ -1,22 +1,8 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.os.Bundle;
 import android.os.PersistableBundle;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
@@ -26,6 +12,14 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.Move;
@@ -33,7 +27,6 @@ import com.github.kiolk.cowsandbulls.logic.CustomTimer;
 import com.github.kiolk.cowsandbulls.logic.TimerChange;
 import com.github.kiolk.cowsandbulls.ui.adapters.GameAdapter;
 import com.github.kiolk.cowsandbulls.ui.dialogs.PublishDialog;
-import com.github.kiolk.cowsandbulls.logic.TimerChange;
 import com.github.kiolk.cowsandbulls.ui.screens.result.BestResultFragment;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
@@ -48,6 +41,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     public static final String BUNDLE_CODED_NUMBER = "BUNDLE_CODED_NUMBER";
     public static final String BUNDLE_MOVES = "BUNDLE_MOVES";
     public static final String BUNDLE_MOVES_VALUES = "BUNDLE_MOVES_VALUES";
+    public static final String BUNDLE_SHOW_BEST = "BUNDLE_SHOW_BEST";
 
     private CustomTimer mCustomTimer;
     private TextView mTimerTV;
@@ -97,6 +91,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         outState.putString(BUNDLE_CODED_NUMBER, mCodedNumber);
         outState.putInt(BUNDLE_MOVES, mMoves);
         outState.putParcelableArrayList(BUNDLE_MOVES_VALUES, (ArrayList<? extends Parcelable>) mAdapter.getMoves());
+        outState.putBoolean(BUNDLE_SHOW_BEST, mContainer.getVisibility() == View.VISIBLE);
         super.onSaveInstanceState(mCustomTimer.saveState(outState));
     }
 
@@ -108,6 +103,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mDisplayLayout.setText(mInput);
         mMoves = savedInstanceState.getInt(BUNDLE_MOVES);
         mAdapter.setMoves(savedInstanceState.getParcelableArrayList(BUNDLE_MOVES_VALUES));
+        if(savedInstanceState.getBoolean(BUNDLE_SHOW_BEST)){
+            showResults();
+        }
         this.mCustomTimer = CustomTimer.restoreTimer(savedInstanceState, this);
     }
 
@@ -168,22 +166,16 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private void showResults() {
         mContainer.setVisibility(View.VISIBLE);
 
+        mBestFragment = (BestResultFragment) getSupportFragmentManager().findFragmentByTag(BestResultFragment.TAG);
+
         if(mBestFragment == null){
             mBestFragment = new BestResultFragment();
-        }else{
-//            FragmentManager manager = getSupportFragmentManager();
-//            FragmentTransaction transaction = manager.beginTransaction();
-//            transaction.add(R.id.fl_container, mBestFragment);
-//            transaction.addToBackStack(null);
-//            transaction.commit();
-            mBestFragment.onRefresh();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.fl_container, mBestFragment, BestResultFragment.TAG);
+            transaction.addToBackStack(null);
+            transaction.commit();
         }
-
-        FragmentManager manager = getSupportFragmentManager();
-        FragmentTransaction transaction = manager.beginTransaction();
-        transaction.add(R.id.fl_container, mBestFragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
 
         TranslateAnimation animation = new TranslateAnimation(mContainer.getWidth(), 0, 0, 0);
         animation.setDuration(300);

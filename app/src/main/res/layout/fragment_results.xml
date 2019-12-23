@@ -35,7 +35,7 @@
         android:id="@+id/tl_results_tabs"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="52dp"
+        android:layout_marginTop="5dp"
         android:stateListAnimator="@null"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"

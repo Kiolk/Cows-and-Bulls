@@ -36,7 +36,7 @@ public class BestResultFragment extends Fragment {
         backButton.setOnClickListener(v -> ((GameActivity) getActivity()).hideResults());
         resultPager = view.findViewById(R.id.vp_results_pager);
         resultPager.setOffscreenPageLimit(4);
-        adapter = new ResultsPagerAdapter(getFragmentManager());
+        adapter = new ResultsPagerAdapter(getChildFragmentManager());
         resultPager.setAdapter(adapter);
         tabs.setupWithViewPager(resultPager);
         tabs.setTabRippleColor(null);

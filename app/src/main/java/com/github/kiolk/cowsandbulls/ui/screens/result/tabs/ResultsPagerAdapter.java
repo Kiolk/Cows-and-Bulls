@@ -119,10 +119,10 @@ public class ResultsPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void onDestroy() {
-        FragmentManager fm = mTodayFragment.requireFragmentManager();
-        fm.beginTransaction().remove(mTodayFragment).commit();
-        fm.beginTransaction().remove(mMonthFragment).commit();
-        fm.beginTransaction().remove(mWeekResultFragment).commit();
-        fm.beginTransaction().remove(mYearResultFragment).commit();
+//        FragmentManager fm = mTodayFragment.requireFragmentManager();
+//        fm.beginTransaction().remove(mTodayFragment).commit();
+//        fm.beginTransaction().remove(mMonthFragment).commit();
+//        fm.beginTransaction().remove(mWeekResultFragment).commit();
+//        fm.beginTransaction().remove(mYearResultFragment).commit();
     }
 }
