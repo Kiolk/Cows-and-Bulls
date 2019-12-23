@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     private CustomTimer mCustomTimer;
     private TextView mTimerTV;
+
     private DisplayLayout mDisplayLayout;
     private KeyboardLayout mKeyboardLayout;
     private String mInput = "";

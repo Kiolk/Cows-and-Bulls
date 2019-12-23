@@ -51,6 +51,13 @@ android {
             buildConfigField "String", "BaseUrl", "\"https://need.specify\""
 
             signingConfig signingConfigs.dev
+
+            firebaseAppDistribution{
+                serviceCredentialsFile="../secret/cowsandbulls-acdea-4bb839490fd1.json"
+                releaseNotesFile="../release_notes/1_1_0.txt"
+                testers="tyteishi@gmail.com"
+                groups="CowsAndBulls-Dev-Team, CowsAndBulls-Qa-Team"
+            }
         }
 
         qa {
@@ -61,18 +68,6 @@ android {
             buildConfigField "String", "BaseUrl", "\"https://need.specify\""
 
             signingConfig signingConfigs.qa
-
-//            ext.betaDistributionReleaseNotes = "\"${formReleaseNote}\""
-//            ext.betaDistributionReleaseNotes = "\"${release_v_1_3}\""
-            ext.betaDistributionEmails = "tyteishi@gmail.com"
-            ext.betaDistributionGroupAliases = "CowsAndBulls-Dev-Team, CowsAndBulls-Qa-Team"
-
-            firebaseAppDistribution {
-//                releaseNotesFile="/path/to/releasenotes.txt"
-                testers="tyteishi@gmailcom"
-            }
-
-
         }
 
         prod{
@@ -104,15 +99,9 @@ android {
     }
 }
 
-task uploadeToCrashlytics{
-//    def commit = getCurrentCommit()
-
-//    if(commit.matches("(.*)[B,b]ump(.*)")){
-    dependsOn("assembleQaRelease")
-//    dependsOn('crashlyticsUploadDistributionQaRelease')
-//    }else{
-//        println commit
-//    }
+task uploadeToAppDestribution{
+    dependsOn("assembleDevRelease")
+    dependsOn("appDistributionUploadDevRelease")
 }
 
 dependencies {
