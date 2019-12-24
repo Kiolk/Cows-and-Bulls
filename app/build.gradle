@@ -56,7 +56,7 @@ android {
                 serviceCredentialsFile="../secret/cowsandbulls-acdea-4bb839490fd1.json"
                 releaseNotesFile="../release_notes/1_1_0.txt"
                 testers="tyteishi@gmail.com"
-                groups="CowsAndBulls-Dev-Team, CowsAndBulls-Qa-Team"
+                groups="CowsAndBullsDevTeam"
             }
         }
 
