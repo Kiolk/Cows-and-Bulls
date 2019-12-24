@@ -1,1 +1,1 @@
-Test release notes
+Added logic for handle rotation screen
