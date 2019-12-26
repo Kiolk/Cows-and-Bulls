@@ -1,9 +1,13 @@
 package com.github.kiolk.cowsandbulls;
 
 
+import android.content.pm.ActivityInfo;
+import android.os.RemoteException;
+
 import androidx.test.ext.junit.runners.AndroidJUnit4;
 import androidx.test.filters.LargeTest;
 import androidx.test.rule.ActivityTestRule;
+import androidx.test.uiautomator.UiDevice;
 
 import com.github.kiolk.cowsandbulls.ui.screens.GameActivity;
 
@@ -18,6 +22,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static androidx.test.espresso.matcher.ViewMatchers.isEnabled;
 import static androidx.test.espresso.matcher.ViewMatchers.withId;
 import static androidx.test.espresso.matcher.ViewMatchers.withText;
+import static androidx.test.platform.app.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.Matchers.not;
 
 @RunWith(AndroidJUnit4.class)
@@ -157,5 +162,63 @@ public class GameScreenTest {
                     .check(matches(not(isEnabled())));
         }
 
+    }
+
+    @Test
+    public void checkRotation(){
+        onView(withText("Start")).check(matches(isDisplayed()));
+
+        checkButtonsEnabled(false);
+        checkEnterEnabled(false);
+
+        activityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        checkButtonsEnabled(false);
+        checkEnterEnabled(false);
+
+        onView(withId(R.id.btn_start))
+                .perform(click())
+                .check(matches(withText("Stop")));
+
+        checkButtonsEnabled(true);
+        checkEnterEnabled(false);
+
+        activityRule.getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        checkButtonsEnabled(true);
+        checkEnterEnabled(false);
+
+        onView(withId(R.id.btn_start))
+                .check(matches(withText("Stop")));
+    }
+
+    @Test
+    public void checkRotationWithAutomate() throws RemoteException {
+        UiDevice device = UiDevice.getInstance(getInstrumentation());
+
+        onView(withText("Start")).check(matches(isDisplayed()));
+
+        checkButtonsEnabled(false);
+        checkEnterEnabled(false);
+
+        device.setOrientationLeft();
+
+        checkButtonsEnabled(false);
+        checkEnterEnabled(false);
+
+        onView(withId(R.id.btn_start))
+                .perform(click())
+                .check(matches(withText("Stop")));
+
+        checkButtonsEnabled(true);
+        checkEnterEnabled(false);
+
+        device.setOrientationNatural();
+
+        checkButtonsEnabled(true);
+        checkEnterEnabled(false);
+
+        onView(withId(R.id.btn_start))
+                .check(matches(withText("Stop")));
     }
 }
