@@ -217,4 +217,13 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     public void onSaveInstanceState(@NonNull Bundle outState, @NonNull PersistableBundle outPersistentState) {
         super.onSaveInstanceState(outState, outPersistentState);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (mContainer.getVisibility() == View.VISIBLE) {
+            hideResults();
+            return;
+        }
+        super.onBackPressed();
+    }
 }
