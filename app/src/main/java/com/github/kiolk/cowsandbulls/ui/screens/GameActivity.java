@@ -8,7 +8,6 @@ import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,7 +52,6 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private RecyclerView mRecyclerView;
     private String mCodedNumber = "";
     private GameAdapter mAdapter;
-    private ImageView mTimerIV;
     private FrameLayout mContainer;
     private ImageButton mResult;
     private BestResultFragment mBestFragment;
@@ -67,14 +65,11 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mKeyboardLayout = findViewById(R.id.keyboard_game);
         mKeyboardLayout.setOnKeyBoardListener(this);
         mCustomTimer = new CustomTimer(this);
-        mTimerTV = findViewById(R.id.timerTV);
-        mTimerIV = findViewById(R.id.timerIV);
-        mTimerIV.setImageDrawable(getBaseContext().getResources().getDrawable(R.drawable.ic_timer));
+        mTimerTV = findViewById(R.id.timer_tv);
         initRecyclerView();
         mContainer = findViewById(R.id.fl_container);
         mResult = findViewById(R.id.btn_result);
         mResult.setOnClickListener(v -> showResults());
-
         mResult = findViewById(R.id.btn_result);
     }
 

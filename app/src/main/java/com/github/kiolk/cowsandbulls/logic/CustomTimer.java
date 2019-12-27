@@ -7,24 +7,24 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class CustomTimer {
+    private static int DELAY = 1000;
+    private static int PERIOD = 1000;
+    private static int INIT_TIME = 0;
+    private static String TIME_KEY = "TIME";
+    private static String IS_RUNNING_KEY = "IS_RUNNING";
+
     private long time;
     private Timer timer;
     private TimerTask timerTask;
     private boolean isRunning = false;
     private TimerChange timerChange;
 
-    private int delay = 0;
-    private int period = 1000;
-
-    private static String TIME_KEY = "time";
-    private static String IS_RUNNING_KEY = "isRunning";
-
     public CustomTimer(TimerChange timerChangeListener) {
         this.timerChange = timerChangeListener;
-        this.time = -1;
+        this.time = INIT_TIME;
         this.timer = new Timer();
         this.timerTask = new TimerTask() {
-            private long currentTime = -1;
+            private long currentTime = INIT_TIME;
 
             @Override
             public void run() {
@@ -52,7 +52,7 @@ public class CustomTimer {
             }
         };
         if(isRunning){
-            this.timer.scheduleAtFixedRate(timerTask, delay, period);
+            this.timer.scheduleAtFixedRate(timerTask, DELAY, PERIOD);
         }
         else{
             timerChange.updateView(getTime());
@@ -62,17 +62,17 @@ public class CustomTimer {
     public void start() {
         if (!isRunning) {
             isRunning = true;
-            this.timer.scheduleAtFixedRate(timerTask, delay, period);
+            this.timer.scheduleAtFixedRate(timerTask, DELAY, PERIOD);
         }
     }
 
     public void reset() {
         this.isRunning = false;
         this.timerTask.cancel();
-        this.time = -1;
+        this.time = INIT_TIME;
         this.timerChange.updateView(new SimpleDateFormat("mm:ss", Locale.getDefault()).format(0));
         this.timerTask = new TimerTask() {
-            private long currentTime = -1;
+            private long currentTime = INIT_TIME;
 
             @Override
             public void run() {
@@ -90,7 +90,9 @@ public class CustomTimer {
     }
 
     static public CustomTimer restoreTimer(Bundle bundle, TimerChange listener) {
-        return new CustomTimer(listener,bundle.getLong(TIME_KEY),bundle.getBoolean(IS_RUNNING_KEY));
+        long time = bundle.getLong(TIME_KEY);
+        listener.updateView(new SimpleDateFormat("mm:ss", Locale.getDefault()).format(time * 1000));
+        return new CustomTimer(listener, time, bundle.getBoolean(IS_RUNNING_KEY));
     }
 
     public void stop() {
