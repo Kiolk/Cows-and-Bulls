@@ -14,26 +14,28 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.ui.screens.GameActivity;
+import com.github.kiolk.cowsandbulls.ui.screens.base.ToolBarFragment;
 import com.github.kiolk.cowsandbulls.ui.screens.result.tabs.ResultsPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
-public class BestResultFragment extends Fragment {
+public class BestResultFragment extends ToolBarFragment {
 
     public static final String TAG = "BaseResultFragment";
 
     private TabLayout tabs;
     private ViewPager resultPager;
     private ResultsPagerAdapter adapter;
-    private ImageView backButton;
+//    private ImageView backButton;
 
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        super.onCreateView(inflater, container, savedInstanceState);
         View view = inflater.inflate(R.layout.fragment_results, container, false);
 
         tabs = view.findViewById(R.id.tl_results_tabs);
-        backButton = view.findViewById(R.id.iv_result_back_button);
-        backButton.setOnClickListener(v -> ((GameActivity) getActivity()).hideResults());
+//        backButton = view.findViewById(R.id.iv_result_back_button);
+//        backButton.setOnClickListener(v -> ((GameActivity) getActivity()).hideResults());
         resultPager = view.findViewById(R.id.vp_results_pager);
         resultPager.setOffscreenPageLimit(4);
         adapter = new ResultsPagerAdapter(getChildFragmentManager());
@@ -70,7 +72,23 @@ public class BestResultFragment extends Fragment {
         return view;
     }
 
-    public void onRefresh(){
+    @Override
+    public String getTitle() {
+        if (getContext() == null) {
+            return "";
+        }
+        return getContext().getResources().getString(R.string.results_title);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(getActivity() == null){
+            return;
+        }
+        ((GameActivity) getActivity()).hideResults();
+    }
+
+    public void onRefresh() {
         adapter.onRefresh();
     }
 
@@ -79,4 +97,6 @@ public class BestResultFragment extends Fragment {
         super.onDestroy();
         adapter.onDestroy();
     }
+
+
 }

@@ -27,6 +27,7 @@ import com.github.kiolk.cowsandbulls.logic.TimerChange;
 import com.github.kiolk.cowsandbulls.ui.adapters.GameAdapter;
 import com.github.kiolk.cowsandbulls.ui.dialogs.PublishDialog;
 import com.github.kiolk.cowsandbulls.ui.screens.result.BestResultFragment;
+import com.github.kiolk.cowsandbulls.ui.screens.rules.RulesFragment;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
@@ -54,7 +55,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private GameAdapter mAdapter;
     private FrameLayout mContainer;
     private ImageButton mResult;
+    private ImageButton mRules;
     private BestResultFragment mBestFragment;
+    private RulesFragment mRulesFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +73,8 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mContainer = findViewById(R.id.fl_container);
         mResult = findViewById(R.id.btn_result);
         mResult.setOnClickListener(v -> showResults());
-        mResult = findViewById(R.id.btn_result);
+        mRules = findViewById(R.id.btn_rules);
+        mRules.setOnClickListener(v -> showRules());
     }
 
     private void initRecyclerView() {
@@ -168,6 +172,26 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.replace(R.id.fl_container, mBestFragment, BestResultFragment.TAG);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }
+
+        TranslateAnimation animation = new TranslateAnimation(mContainer.getWidth(), 0, 0, 0);
+        animation.setDuration(300);
+        animation.setFillAfter(true);
+        mContainer.startAnimation(animation);
+    }
+
+    private void showRules(){
+        mContainer.setVisibility(View.VISIBLE);
+
+        mRulesFragment = (RulesFragment) getSupportFragmentManager().findFragmentByTag(RulesFragment.TAG);
+
+        if(mRulesFragment == null){
+            mRulesFragment = new RulesFragment();
+            FragmentManager manager = getSupportFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.replace(R.id.fl_container, mRulesFragment, RulesFragment.TAG);
             transaction.addToBackStack(null);
             transaction.commit();
         }
