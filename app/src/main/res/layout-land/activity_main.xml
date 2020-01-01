@@ -27,6 +27,19 @@
         app:layout_constraintRight_toLeftOf="@+id/guideline_center_vertical"
         app:layout_constraintTop_toTopOf="@+id/display_input" />
 
+    <ImageButton
+        android:id="@+id/btn_rules"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
+        android:layout_marginLeft="15dp"
+        android:background="@color/white"
+        android:src="@drawable/ic_result_button"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/btn_result"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_result"
+        tools:ignore="ContentDescription" />
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

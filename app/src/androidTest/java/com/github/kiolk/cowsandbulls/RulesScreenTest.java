@@ -93,6 +93,10 @@ public class RulesScreenTest {
 
         checkRules(true);
 
+        onView(withId(R.id.tv_result_title))
+                .check(matches(withText("Rules")))
+                .check(matches(isDisplayed()));
+
         device.setOrientationLeft();
 
         checkRules(true);

@@ -52,6 +52,8 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private int mMoves = 0;
     private RecyclerView mRecyclerView;
     private String mCodedNumber = "";
+    private String mOpenChildScreen;
+
     private GameAdapter mAdapter;
     private FrameLayout mContainer;
     private ImageButton mResult;
@@ -90,7 +92,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         outState.putString(BUNDLE_CODED_NUMBER, mCodedNumber);
         outState.putInt(BUNDLE_MOVES, mMoves);
         outState.putParcelableArrayList(BUNDLE_MOVES_VALUES, (ArrayList<? extends Parcelable>) mAdapter.getMoves());
-        outState.putBoolean(BUNDLE_SHOW_BEST, mContainer.getVisibility() == View.VISIBLE);
+        if(mContainer.getVisibility() == View.VISIBLE){
+            outState.putString(BUNDLE_SHOW_BEST, mOpenChildScreen);
+        }
         super.onSaveInstanceState(mCustomTimer.saveState(outState));
     }
 
@@ -102,8 +106,11 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mDisplayLayout.setText(mInput);
         mMoves = savedInstanceState.getInt(BUNDLE_MOVES);
         mAdapter.setMoves(savedInstanceState.getParcelableArrayList(BUNDLE_MOVES_VALUES));
-        if(savedInstanceState.getBoolean(BUNDLE_SHOW_BEST)){
+        mOpenChildScreen = savedInstanceState.getString(BUNDLE_SHOW_BEST);
+        if(mOpenChildScreen != null && mOpenChildScreen.equals(BestResultFragment.TAG)){
             showResults();
+        }else if(mOpenChildScreen != null && mOpenChildScreen.equals(RulesFragment.TAG)){
+            showRules();
         }
         this.mCustomTimer = CustomTimer.restoreTimer(savedInstanceState, this);
     }
@@ -164,6 +171,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     private void showResults() {
         mContainer.setVisibility(View.VISIBLE);
+        mOpenChildScreen = BestResultFragment.TAG;
 
         mBestFragment = (BestResultFragment) getSupportFragmentManager().findFragmentByTag(BestResultFragment.TAG);
 
@@ -184,6 +192,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     private void showRules(){
         mContainer.setVisibility(View.VISIBLE);
+        mOpenChildScreen = RulesFragment.TAG;
 
         mRulesFragment = (RulesFragment) getSupportFragmentManager().findFragmentByTag(RulesFragment.TAG);
 
