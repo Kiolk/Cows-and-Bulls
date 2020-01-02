@@ -1,1 +1,4 @@
-Added logic for handle rotation screen
+- Added best results screen.
+- Added rules screen.
+- Added belorussian localization.
+- Fixed small bugs.
