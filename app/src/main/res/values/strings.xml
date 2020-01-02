@@ -37,4 +37,5 @@
     <string name="result_tab_year">Year</string>
     <string name="results_title">Results</string>
     <string name="rules_title">Rules</string>
+    <string name="erorr_incorrect_number">Your number incorrect</string>
 </resources>
