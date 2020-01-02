@@ -153,7 +153,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     @Override
     public void onEnterPressed() {
         if (!NumberUtil.checkCorrectInput(mInput, LENGTH_CODED_NUMBER)) {
-            Toast.makeText(this, "Your number incorrect", Toast.LENGTH_LONG).show();
+            Toast.makeText(getBaseContext(), R.string.erorr_incorrect_number, Toast.LENGTH_LONG).show();
             return;
         }
         mMoves++;
@@ -181,6 +181,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     }
 
     private void showResults() {
+        enableNavigationButtons(false);
         mContainer.setVisibility(View.VISIBLE);
         mOpenChildScreen = BestResultFragment.TAG;
 
@@ -202,6 +203,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     }
 
     private void showRules() {
+        enableNavigationButtons(false);
         mContainer.setVisibility(View.VISIBLE);
         mOpenChildScreen = RulesFragment.TAG;
 
@@ -223,6 +225,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     }
 
     public void hideResults() {
+        enableNavigationButtons(true);
         TranslateAnimation animation = new TranslateAnimation(0, mContainer.getWidth(), 0, 0);
         animation.setDuration(300);
         animation.setFillAfter(true);
@@ -245,6 +248,11 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         });
 
         mContainer.startAnimation(animation);
+    }
+
+    private void enableNavigationButtons(Boolean isEnabled) {
+        mResult.setEnabled(isEnabled);
+        mRules.setEnabled(isEnabled);
     }
 
     @Override
