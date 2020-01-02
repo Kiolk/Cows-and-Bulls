@@ -73,7 +73,6 @@ android {
         prod{
             dimension "version"
             applicationIdSuffix ".prod"
-            versionNameSuffix "-prod"
 
             buildConfigField "String", "ApiUrl", "\"https://need.specify\""
 
