@@ -30,7 +30,9 @@ import com.github.kiolk.cowsandbulls.ui.screens.result.BestResultFragment;
 import com.github.kiolk.cowsandbulls.ui.screens.rules.RulesFragment;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
+import com.github.kiolk.cowsandbulls.utils.ANALYTICS;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
@@ -43,23 +45,25 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     public static final String BUNDLE_MOVES_VALUES = "BUNDLE_MOVES_VALUES";
     public static final String BUNDLE_SHOW_BEST = "BUNDLE_SHOW_BEST";
 
-    private CustomTimer mCustomTimer;
-    private TextView mTimerTV;
-
-    private DisplayLayout mDisplayLayout;
-    private KeyboardLayout mKeyboardLayout;
-    private String mInput = "";
     private int mMoves = 0;
-    private RecyclerView mRecyclerView;
+    private String mInput = "";
     private String mCodedNumber = "";
     private String mOpenChildScreen;
 
-    private GameAdapter mAdapter;
+    private CustomTimer mCustomTimer;
+    private TextView mTimerTV;
+    private DisplayLayout mDisplayLayout;
+    private KeyboardLayout mKeyboardLayout;
+    private RecyclerView mRecyclerView;
     private FrameLayout mContainer;
     private ImageButton mResult;
     private ImageButton mRules;
+    private GameAdapter mAdapter;
+
     private BestResultFragment mBestFragment;
     private RulesFragment mRulesFragment;
+
+    private FirebaseAnalytics mAnalytics;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,9 +78,16 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         initRecyclerView();
         mContainer = findViewById(R.id.fl_container);
         mResult = findViewById(R.id.btn_result);
-        mResult.setOnClickListener(v -> showResults());
+        mResult.setOnClickListener(v -> {
+            mAnalytics.logEvent(ANALYTICS.OPEN_RESULTS_EVENT, null);
+            showResults();
+        });
         mRules = findViewById(R.id.btn_rules);
-        mRules.setOnClickListener(v -> showRules());
+        mRules.setOnClickListener(v -> {
+            mAnalytics.logEvent(ANALYTICS.OPEN_RULES_EVENT, null);
+            showRules();
+        });
+        mAnalytics = FirebaseAnalytics.getInstance(getBaseContext());
     }
 
     private void initRecyclerView() {
@@ -92,7 +103,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         outState.putString(BUNDLE_CODED_NUMBER, mCodedNumber);
         outState.putInt(BUNDLE_MOVES, mMoves);
         outState.putParcelableArrayList(BUNDLE_MOVES_VALUES, (ArrayList<? extends Parcelable>) mAdapter.getMoves());
-        if(mContainer.getVisibility() == View.VISIBLE){
+        if (mContainer.getVisibility() == View.VISIBLE) {
             outState.putString(BUNDLE_SHOW_BEST, mOpenChildScreen);
         }
         super.onSaveInstanceState(mCustomTimer.saveState(outState));
@@ -107,9 +118,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mMoves = savedInstanceState.getInt(BUNDLE_MOVES);
         mAdapter.setMoves(savedInstanceState.getParcelableArrayList(BUNDLE_MOVES_VALUES));
         mOpenChildScreen = savedInstanceState.getString(BUNDLE_SHOW_BEST);
-        if(mOpenChildScreen != null && mOpenChildScreen.equals(BestResultFragment.TAG)){
+        if (mOpenChildScreen != null && mOpenChildScreen.equals(BestResultFragment.TAG)) {
             showResults();
-        }else if(mOpenChildScreen != null && mOpenChildScreen.equals(RulesFragment.TAG)){
+        } else if (mOpenChildScreen != null && mOpenChildScreen.equals(RulesFragment.TAG)) {
             showRules();
         }
         this.mCustomTimer = CustomTimer.restoreTimer(savedInstanceState, this);
@@ -175,7 +186,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
         mBestFragment = (BestResultFragment) getSupportFragmentManager().findFragmentByTag(BestResultFragment.TAG);
 
-        if(mBestFragment == null){
+        if (mBestFragment == null) {
             mBestFragment = new BestResultFragment();
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
@@ -190,13 +201,13 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mContainer.startAnimation(animation);
     }
 
-    private void showRules(){
+    private void showRules() {
         mContainer.setVisibility(View.VISIBLE);
         mOpenChildScreen = RulesFragment.TAG;
 
         mRulesFragment = (RulesFragment) getSupportFragmentManager().findFragmentByTag(RulesFragment.TAG);
 
-        if(mRulesFragment == null){
+        if (mRulesFragment == null) {
             mRulesFragment = new RulesFragment();
             FragmentManager manager = getSupportFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();

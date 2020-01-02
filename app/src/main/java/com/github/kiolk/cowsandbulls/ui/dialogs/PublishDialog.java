@@ -14,13 +14,17 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.DialogFragment;
 
 import com.github.kiolk.cowsandbulls.App;
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.result.remote.ResultRemote;
+import com.github.kiolk.cowsandbulls.utils.ANALYTICS;
 import com.github.kiolk.cowsandbulls.utils.InternetConnection;
+import com.github.kiolk.cowsandbulls.utils.StringUtils;
+import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -28,15 +32,25 @@ import java.util.Locale;
 
 public class PublishDialog extends DialogFragment {
 
-    private static final String BUNDLE__GAME_RESULT = "BUNDLE__GAME_RESULT";
+    private static final String BUNDLE__GAME_RESULT = "BUNDLE_GAME_RESULT";
     public static final String TAG = "PublishDialog";
+
     private Dialog dialog;
     private String userName;
     private GameResult result;
-    private  EditText input;
+    private EditText input;
     private TextView btnPublish;
     private TextView btnCancel;
     private ProgressBar pbProgress;
+    private FirebaseAnalytics mAnalytics;
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        if(getContext() != null){
+            mAnalytics = FirebaseAnalytics.getInstance(getContext());
+        }
+    }
 
     @NonNull
     @Override
@@ -59,7 +73,7 @@ public class PublishDialog extends DialogFragment {
     }
 
     private Dialog show() {
-        androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext()).setCancelable(false);
+        AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext()).setCancelable(false);
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.layout_publish_dialog, null);
 
@@ -71,7 +85,7 @@ public class PublishDialog extends DialogFragment {
         btnPublish = view.findViewById(R.id.btn_publish);
         btnPublish.setOnClickListener(v -> onPublish());
         pbProgress = view.findViewById(R.id.pb_publish);
-        ((TextView) view.findViewById(R.id.tv_time_value)).setText(new SimpleDateFormat("mm:ss", Locale.getDefault()).format(new Date(result.getTime() * 1000)));
+        ((TextView) view.findViewById(R.id.tv_time_value)).setText(new SimpleDateFormat(StringUtils.TO_MM_SS, Locale.getDefault()).format(new Date(result.getTime() * 1000)));
         ((TextView) view.findViewById(R.id.tv_moves_value)).setText(String.valueOf(result.getMoves()));
         input = view.findViewById(R.id.et_nik_name_input);
 
@@ -91,7 +105,9 @@ public class PublishDialog extends DialogFragment {
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 userName = s.toString();
-                input.setBackground(getContext().getResources().getDrawable(R.drawable.bg_edit_text_background));
+                if(getContext() != null){
+                    input.setBackground(getContext().getResources().getDrawable(R.drawable.bg_edit_text_background));
+                }
             }
 
             @Override
@@ -100,14 +116,20 @@ public class PublishDialog extends DialogFragment {
             }
         });
 
+        Bundle params = new Bundle();
+        params.putString(ANALYTICS.NAME, input.getText().toString());
+        params.putLong(ANALYTICS.TIME, result.getTime() * 1000);
+        params.putInt(ANALYTICS.MOVES, result.getMoves());
+        mAnalytics.logEvent(ANALYTICS.GAME_COMPLETED_EVENT, params);
+
         dialog = builder.create();
         return dialog;
     }
 
     private void onCancel() {
+        mAnalytics.logEvent(ANALYTICS.RESULT_CANCEL_EVENT, null);
         App.getSettingsRepository().setUserName(userName);
         dialog.dismiss();
-
     }
 
     private void onPublish() {
@@ -138,7 +160,7 @@ public class PublishDialog extends DialogFragment {
         }
 
         ResultRemote resultRemote = new ResultRemote();
-        resultRemote.setDate(new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssXXX", Locale.getDefault()).format(new Date()));
+        resultRemote.setDate(new SimpleDateFormat(StringUtils.TO_YYYY_MM_DD_T_HH_mm_ss_XXX, Locale.getDefault()).format(new Date()));
         resultRemote.setMoves(result.getMoves());
         resultRemote.setUserName(userName);
         String uuid = App.getSettingsRepository().getIdentification();
@@ -146,6 +168,8 @@ public class PublishDialog extends DialogFragment {
         resultRemote.setTime(result.getTime());
 
         Handler handler = new Handler();
+
+        mAnalytics.logEvent(ANALYTICS.RESULT_PUBLISH_EVENT, null);
 
         new Thread(() -> {
             App.getGameRepository().publishResult(resultRemote);
