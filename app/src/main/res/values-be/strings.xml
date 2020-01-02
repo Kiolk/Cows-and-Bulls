@@ -1,0 +1,32 @@
+<resources>
+    <!--  activity_main  -->
+    <string name="app_name">Быкі ды каровы</string>
+    <string name="start">Пачаць</string>
+    <string name="stop">Скончыць</string>
+
+    <!-- Publish dialog   -->
+    <string name="text_dialog_publish">Апублікаваць</string>
+    <string name="text_dialog_time">Час</string>
+    <string name="text_dialog_moves">Хадоў</string>
+    <string name="cancel">Адмена</string>
+    <string name="title_dialog">Перамога!\nЖадаеце апублікаваць свой вынік?</string>
+    <string name="your_nick_name">Тваё імя</string>
+    <string name="start_time">00:00</string>
+    <string name="rules"><b>Як гуляць?</b>\n\n
+        Адгадайце чатырохзначны лік, у якім лічбы не паўтараюцца.\n\n
+        Пасля таго, як вы ўвядзеце меркаваны лік, вы атрымаеце інфармацыю пра колькасць:\n\n
+        кароў - лічбы, якія ёсць у загаданым ліку, але знаходзяцца на іншай пазіцыі, \n\n
+        быкоў - лічбы, якія ёсць у загаданым ліку і знаходзяцца ў такой жа пазіцыі. \n\n
+        Каб распачаць гульню, націсніце \"Пачаць\"</string>
+    <string name="start_part">Пачаць</string>
+    <string name="how_to_play_part">Як гуляць?</string>
+
+    <!-- fragment_result   -->
+    <string name="result_tab_today">Сёння</string>
+    <string name="result_tab_week">Тыдзень</string>
+    <string name="result_tab_month">Месяц</string>
+    <string name="result_tab_year">Год</string>
+    <string name="results_title">Вынікі</string>
+    <string name="rules_title">Правілы</string>
+    <string name="erorr_incorrect_number">Уведзены лік няправільны</string>
+</resources>

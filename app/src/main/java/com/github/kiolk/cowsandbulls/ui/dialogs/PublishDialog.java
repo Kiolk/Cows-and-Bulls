@@ -44,14 +44,6 @@ public class PublishDialog extends DialogFragment {
     private ProgressBar pbProgress;
     private FirebaseAnalytics mAnalytics;
 
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        if(getContext() != null){
-            mAnalytics = FirebaseAnalytics.getInstance(getContext());
-        }
-    }
-
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -73,6 +65,9 @@ public class PublishDialog extends DialogFragment {
     }
 
     private Dialog show() {
+        if(getContext() != null){
+            mAnalytics = FirebaseAnalytics.getInstance(getContext());
+        }
         AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(getContext()).setCancelable(false);
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View view = inflater.inflate(R.layout.layout_publish_dialog, null);
