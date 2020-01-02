@@ -35,4 +35,6 @@
     <string name="result_tab_week">Week</string>
     <string name="result_tab_month">Month</string>
     <string name="result_tab_year">Year</string>
+    <string name="results_title">Results</string>
+    <string name="rules_title">Rules</string>
 </resources>
