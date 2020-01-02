@@ -28,4 +28,5 @@
     <string name="result_tab_year">Год</string>
     <string name="results_title">Вынікі</string>
     <string name="rules_title">Правілы</string>
+    <string name="erorr_incorrect_number">Уведзены лік няправільны</string>
 </resources>
