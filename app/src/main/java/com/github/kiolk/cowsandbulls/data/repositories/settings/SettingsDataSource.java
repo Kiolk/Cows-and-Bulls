@@ -9,4 +9,8 @@ public interface SettingsDataSource {
     void setIdentification(String identification);
 
     String getIdentification();
+
+    void setDeviceToken(String token);
+
+    String getDeviceToken();
 }

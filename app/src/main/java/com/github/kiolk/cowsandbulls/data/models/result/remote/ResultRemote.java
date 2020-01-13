@@ -14,6 +14,8 @@ public class ResultRemote {
 
     private String uuid;
 
+    private String deviceToken;
+
     public ResultRemote() {
     }
 
@@ -55,6 +57,14 @@ public class ResultRemote {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getDeviceToken() {
+        return deviceToken;
+    }
+
+    public void setDeviceToken(String deviceToken) {
+        this.deviceToken = deviceToken;
     }
 
     public static Result toResult(ResultRemote resultRemote){

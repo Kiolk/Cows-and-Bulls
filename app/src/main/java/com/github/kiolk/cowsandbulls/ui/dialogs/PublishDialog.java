@@ -21,6 +21,8 @@ import com.github.kiolk.cowsandbulls.App;
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.result.remote.ResultRemote;
+import com.github.kiolk.cowsandbulls.domain.ResultListener;
+import com.github.kiolk.cowsandbulls.domain.use_cases.PublishUseCase;
 import com.github.kiolk.cowsandbulls.utils.ANALYTICS;
 import com.github.kiolk.cowsandbulls.utils.InternetConnection;
 import com.github.kiolk.cowsandbulls.utils.StringUtils;
@@ -162,13 +164,18 @@ public class PublishDialog extends DialogFragment {
         resultRemote.setUuid(uuid);
         resultRemote.setTime(result.getTime());
 
-        Handler handler = new Handler();
-
         mAnalytics.logEvent(ANALYTICS.RESULT_PUBLISH_EVENT, null);
 
-        new Thread(() -> {
-            App.getGameRepository().publishResult(resultRemote);
-            handler.post(() -> dialog.dismiss());
+        new PublishUseCase(new PublishUseCase.Params(resultRemote), new ResultListener<Void>() {
+            @Override
+            public void onResult(Void result) {
+                dialog.dismiss();
+            }
+
+            @Override
+            public void onFailer(Exception ex) {
+                dialog.dismiss();
+            }
         }).start();
     }
 }

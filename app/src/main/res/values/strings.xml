@@ -1,4 +1,7 @@
 <resources>
+    <!-- common -->
+    <string name="default_notification_channel_id" translatable="false">Bulls</string>
+
     <!--  activity_main  -->
     <string name="app_name">Bulls &amp; Cows</string>
     <string name="one" translatable="false">1</string>
