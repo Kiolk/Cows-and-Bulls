@@ -28,5 +28,10 @@
     <string name="result_tab_year">Год</string>
     <string name="results_title">Вынікі</string>
     <string name="rules_title">Правілы</string>
-    <string name="erorr_incorrect_number">Уведзены лік няправільны</string>
+    <string name="error_incorrect_number">Уведзены лік няправільны</string>
+    <string name="do_not_have_data">Пакуль няма дадзеных</string>
+
+    <!-- notification -->
+    <string name="notification_title">Пазіцыя вашага выніка - %s!</string>
+    <string name="notification_body">%s адгадаў лік за %s ды %s крокаў</string>
 </resources>

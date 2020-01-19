@@ -12,6 +12,7 @@ public class LocalSettingsDataSource implements SettingsDataSource {
     private static final String SETTINGS = "SETTINGS";
     public static final String USER_NAME = "USER_NAME";
     public static final String IDENTIFICATION = "IDENTIFICATION";
+    public static final String DEVICE_TOKEN = "DEVICE_TOKEN";
 
     private SharedPreferences preferences;
 
@@ -47,5 +48,17 @@ public class LocalSettingsDataSource implements SettingsDataSource {
         }
 
         return uuid;
+    }
+
+    @Override
+    public void setDeviceToken(String token) {
+       SharedPreferences.Editor editor = preferences.edit();
+       editor.putString(DEVICE_TOKEN, token);
+       editor.apply();
+    }
+
+    @Override
+    public String getDeviceToken() {
+        return preferences.getString(DEVICE_TOKEN, null);
     }
 }

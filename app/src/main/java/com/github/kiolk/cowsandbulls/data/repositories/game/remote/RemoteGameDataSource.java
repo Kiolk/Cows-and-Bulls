@@ -2,6 +2,7 @@ package com.github.kiolk.cowsandbulls.data.repositories.game.remote;
 
 import android.util.Log;
 
+import com.github.kiolk.cowsandbulls.BuildConfig;
 import com.github.kiolk.cowsandbulls.data.PeriodType;
 import com.github.kiolk.cowsandbulls.data.models.result.Result;
 import com.github.kiolk.cowsandbulls.data.models.result.remote.ResultRemote;
@@ -25,7 +26,7 @@ public class RemoteGameDataSource implements GameDataSource {
 
     @Override
     public void publishResult(ResultRemote result) {
-        String stringUrl = "https://us-central1-cowsandbulls-acdea.cloudfunctions.net/result";
+        String stringUrl = BuildConfig.BASE_URL + "result";
         String inputLine;
         try {
             //Create a URL object holding our url
@@ -46,6 +47,7 @@ public class RemoteGameDataSource implements GameDataSource {
             jsonParam.put("moves", result.getMoves());
             jsonParam.put("time", result.getTime());
             jsonParam.put("date", result.getDate());
+            jsonParam.put("deviceToken", result.getDeviceToken());
 
             //Connect to our url
 //            DataOutputStream os = new DataOutputStream(connection.getOutputStream());
@@ -74,7 +76,7 @@ public class RemoteGameDataSource implements GameDataSource {
 
     @Override
     public List<ResultRemote> getBestResults(PeriodType type) {
-        String stringUrl = "https://us-central1-cowsandbulls-acdea.cloudfunctions.net/best?period=" + type.getValue();
+        String stringUrl = BuildConfig.BASE_URL + "best?period=" + type.getValue();
         String inputLine;
         List<ResultRemote> results = new ArrayList<>();
         try {
