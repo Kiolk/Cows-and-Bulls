@@ -1,6 +1,9 @@
 package com.github.kiolk.cowsandbulls;
 
 import android.app.Application;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.os.Build;
 import android.util.Log;
 
 import com.github.kiolk.cowsandbulls.data.repositories.game.DefaultGameRepository;
@@ -24,6 +27,7 @@ public class App extends Application {
         super.onCreate();
         instance = this;
         setupFireBaseMessaging();
+        createNotificationChannelIfNeeded();
     }
 
     public static GameRepository getGameRepository() {
@@ -52,5 +56,18 @@ public class App extends Application {
                     }
                 }
         );
+    }
+
+    private void createNotificationChannelIfNeeded() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.O) {
+            return;
+        }
+
+        String channelId = getString(R.string.default_notification_channel_id);
+        String channelName = getString(R.string.default_notification_channel_name);
+        NotificationManager manager = getSystemService(NotificationManager.class);
+        if (manager != null) {
+            manager.createNotificationChannel(new NotificationChannel(channelId, channelName, NotificationManager.IMPORTANCE_HIGH));
+        }
     }
 }

@@ -48,7 +48,7 @@ android {
             applicationIdSuffix ".dev"
             versionNameSuffix "-dev"
 
-            buildConfigField "String", "BaseUrl", "\"https://need.specify\""
+            buildConfigField "String", "BASE_URL", "\"https://us-central1-pushnotificationsample-1c8c9.cloudfunctions.net/\""
 
             signingConfig signingConfigs.dev
 
@@ -65,7 +65,7 @@ android {
             applicationIdSuffix ".qa"
             versionNameSuffix "-qa"
 
-            buildConfigField "String", "BaseUrl", "\"https://need.specify\""
+            buildConfigField "String", "BASE_URL", "\"https://us-central1-pushnotificationsample-1c8c9.cloudfunctions.net/\""
 
             signingConfig signingConfigs.qa
         }
@@ -75,7 +75,7 @@ android {
             applicationIdSuffix ".prod"
             versionNameSuffix "-prod"
 
-            buildConfigField "String", "ApiUrl", "\"https://need.specify\""
+            buildConfigField "String", "BASE_URL", "\"https://us-central1-cowsandbulls-acdea.cloudfunctions.net/\""
 
             signingConfig signingConfigs.prod
         }
