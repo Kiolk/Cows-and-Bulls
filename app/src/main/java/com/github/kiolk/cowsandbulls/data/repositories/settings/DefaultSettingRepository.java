@@ -27,4 +27,14 @@ public class DefaultSettingRepository implements SettingsRepository {
     public String getIdentification() {
         return local.getIdentification();
     }
+
+    @Override
+    public void setDeviceToken(String token) {
+        local.setDeviceToken(token);
+    }
+
+    @Override
+    public String getDeviceToken() {
+        return local.getDeviceToken();
+    }
 }

@@ -1,4 +1,8 @@
 <resources>
+    <!-- common -->
+    <string name="default_notification_channel_id" translatable="false">Bulls</string>
+    <string name="default_notification_channel_name" translatable="false">Bulls and Cows</string>
+
     <!--  activity_main  -->
     <string name="app_name">Bulls &amp; Cows</string>
     <string name="one" translatable="false">1</string>
@@ -38,5 +42,10 @@
     <string name="result_tab_year">Year</string>
     <string name="results_title">Results</string>
     <string name="rules_title">Rules</string>
-    <string name="erorr_incorrect_number">Your number incorrect</string>
+    <string name="error_incorrect_number">Your number incorrect</string>
+    <string name="do_not_have_data">Don\'t have any data</string>
+
+    <!-- notification -->
+    <string name="notification_title">You result shift to position - %s!</string>
+    <string name="notification_body">%s find number during %s and by %s moves</string>
 </resources>

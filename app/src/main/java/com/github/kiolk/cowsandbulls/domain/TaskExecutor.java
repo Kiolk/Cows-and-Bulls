@@ -35,6 +35,10 @@ public abstract class TaskExecutor<T, B> extends AsyncTask<T, Void, ResultHandle
     @Override
     protected void onPostExecute(ResultHandler resultHandler) {
         super.onPostExecute(resultHandler);
+        if(listener == null){
+            return;
+        }
+
         if(resultHandler.exception == null && resultHandler.result != null){
             listener.onResult((B) resultHandler.result);
         }else{
