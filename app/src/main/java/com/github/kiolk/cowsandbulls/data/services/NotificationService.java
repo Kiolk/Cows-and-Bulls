@@ -50,7 +50,7 @@ public class NotificationService extends FirebaseMessagingService {
 
         Uri alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         int notificationId = new Random().nextInt();
-        PendingIntent intent = PendingIntent.getActivity(this, notificationId, notificationIntent, FLAG_ONE_SHOT);
+        PendingIntent intent = PendingIntent.getActivity(this, notificationId, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
 
         NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this, getString(R.string.default_notification_channel_id))
                 .setSmallIcon(R.drawable.ic_bull)
@@ -60,7 +60,7 @@ public class NotificationService extends FirebaseMessagingService {
                 .setGroup(String.valueOf(notificationId))
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setSound(alarmSound)
-                .setVibrate(new long[]{0, 1000, 0, 1000})
+                .setVibrate(new long[]{0, 500, 0, 500})
                 .setContentIntent(intent);
 
         NotificationManager mNotificationManager = (NotificationManager)

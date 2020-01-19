@@ -47,5 +47,5 @@
 
     <!-- notification -->
     <string name="notification_title">You result shift to position - %s!</string>
-    <string name="notification_body">%s find number during %s seconds and by %s moves</string>
+    <string name="notification_body">%s find number during %s and by %s moves</string>
 </resources>
