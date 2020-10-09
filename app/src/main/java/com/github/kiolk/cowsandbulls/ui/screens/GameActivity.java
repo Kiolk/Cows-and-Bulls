@@ -1,5 +1,6 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
@@ -30,13 +31,14 @@ import com.github.kiolk.cowsandbulls.ui.screens.result.BestResultFragment;
 import com.github.kiolk.cowsandbulls.ui.screens.rules.RulesFragment;
 import com.github.kiolk.cowsandbulls.ui.views.DisplayLayout;
 import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
+import com.github.kiolk.cowsandbulls.ui.views.StartSpannable;
 import com.github.kiolk.cowsandbulls.utils.ANALYTICS;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
 
-public class GameActivity extends AppCompatActivity implements KeyboardLayout.OnKeyBoardListener, TimerChange {
+public class GameActivity extends AppCompatActivity implements KeyboardLayout.OnKeyBoardListener, TimerChange, StartSpannable.StartSpannableOnclickListener {
 
     public static final int LENGTH_CODED_NUMBER = 4;
     public static final String BUNDLE_INPUT = "BUNDLE_INPUT";
@@ -93,7 +95,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private void initRecyclerView() {
         mRecyclerView = findViewById(R.id.rv_moves);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getBaseContext(), LinearLayoutManager.VERTICAL, false));
-        mAdapter = new GameAdapter();
+        mAdapter = new GameAdapter(this);
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -272,5 +274,16 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
             return;
         }
         super.onBackPressed();
+    }
+
+    @Override
+    public void start() {
+        hideResults();
+        mKeyboardLayout.startOutside();
+    }
+
+    @Override
+    public Context mGetContext() {
+        return this.getApplication();
     }
 }
