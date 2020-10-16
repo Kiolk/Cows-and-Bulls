@@ -29,8 +29,6 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
     private boolean isStartPressed = false;
     private StartSpannable.StartSpannableOnclickListener onclickListener;
 
-    private GameAdapter(){}
-
     public GameAdapter(StartSpannable.StartSpannableOnclickListener onclickListener) {
         this.onclickListener = onclickListener;
         moves = new ArrayList<>();
@@ -127,14 +125,25 @@ public class GameAdapter extends Adapter<GameAdapter.ViewHolder> {
         private void onBindRules(StartSpannable.StartSpannableOnclickListener onclickListener) {
             Resources resources = itemView.getContext().getResources();
             String text = resources.getString(R.string.rules);
-            Spannable span = new SpannableString(text);
-            String coloredStartText = resources.getString(R.string.start_part);
+            Spannable span;
             String howToPlayText = resources.getString(R.string.how_to_play_part);
-            int length = text.length();
+            if (!onclickListener.gameIsStarted()) {
 
-            StartSpannable clickableSpan = new StartSpannable(onclickListener);
+                String bottomText = resources.getString(R.string.bottom_rules_start);
+                String coloredStartText = resources.getString(R.string.start_part);
+                text = text + bottomText;
 
-            span.setSpan(clickableSpan, length - coloredStartText.length() - 2, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+                span = new SpannableString(text);
+                int length = text.length();
+
+                StartSpannable clickableSpan = new StartSpannable(onclickListener,
+                        itemView.getContext().getResources().getColor(R.color.middleBlue));
+
+                span.setSpan(clickableSpan, length - coloredStartText.length() - 2, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            } else {
+                span = new SpannableString(text);
+            }
+            
             final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
             span.setSpan(bss, 0, howToPlayText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
             mRules.setText(span);

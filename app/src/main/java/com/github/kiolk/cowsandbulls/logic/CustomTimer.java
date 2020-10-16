@@ -66,6 +66,10 @@ public class CustomTimer {
         }
     }
 
+    public boolean isRunning() {
+        return isRunning;
+    }
+
     public void reset() {
         this.isRunning = false;
         this.timerTask.cancel();
@@ -81,6 +85,8 @@ public class CustomTimer {
                 timerChange.updateView(getTime());
             }
         };
+
+
     }
 
     public Bundle saveState(Bundle bundle) {

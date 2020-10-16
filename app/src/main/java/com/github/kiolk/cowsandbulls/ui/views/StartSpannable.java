@@ -1,41 +1,43 @@
 package com.github.kiolk.cowsandbulls.ui.views;
 
-import android.content.Context;
 import android.text.TextPaint;
 import android.text.style.ClickableSpan;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
-
-import com.github.kiolk.cowsandbulls.R;
 
 public class StartSpannable extends ClickableSpan {
 
+    @ColorInt
+    private int startColor;
+
     private StartSpannableOnclickListener onclickListener;
 
-    public StartSpannable(StartSpannableOnclickListener onclickListener) {
+    public StartSpannable(@NonNull StartSpannableOnclickListener onclickListener,
+                          @NonNull int startColor) {
         this.onclickListener = onclickListener;
+        this.startColor = startColor;
     }
 
     @Override
     public void onClick(@NonNull View view) {
-        if (onclickListener != null) {
-            onclickListener.start();
-        }
+        onclickListener.start();
     }
 
     @Override
     public void updateDrawState(@NonNull TextPaint ds) {
         super.updateDrawState(ds);
-        if (onclickListener != null) {
-            ds.setColor(onclickListener.mGetContext().getResources().getColor(R.color.middleBlue));
-        }
+//        ds.setColor(onclickListener.mGetContext().getResources().getColor(R.color.middleBlue));
+        ds.setColor(startColor);
+    }
+
+    public StartSpannableOnclickListener getOnclickListener() {
+        return onclickListener;
     }
 
     public interface StartSpannableOnclickListener {
-
         public void start();
-        public Context mGetContext();
-
+        public boolean gameIsStarted();
     }
 }

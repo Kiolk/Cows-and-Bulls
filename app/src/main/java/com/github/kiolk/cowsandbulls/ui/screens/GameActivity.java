@@ -1,6 +1,5 @@
 package com.github.kiolk.cowsandbulls.ui.screens;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.PersistableBundle;
@@ -283,7 +282,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     }
 
     @Override
-    public Context mGetContext() {
-        return this.getApplication();
+    public boolean gameIsStarted() {
+        return mCustomTimer.isRunning();
     }
 }
