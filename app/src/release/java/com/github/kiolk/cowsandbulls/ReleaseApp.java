@@ -1,16 +1,12 @@
 package com.github.kiolk.cowsandbulls;
 
-import android.app.Application;
-
-import com.crashlytics.android.Crashlytics;
-
-import io.fabric.sdk.android.Fabric;
+import com.google.firebase.crashlytics.FirebaseCrashlytics;
 
 public class ReleaseApp extends App {
 
     @Override
     public void onCreate() {
         super.onCreate();
-        Fabric.with(this, new Crashlytics());
+        FirebaseCrashlytics.getInstance().setCrashlyticsCollectionEnabled(true);
     }
 }

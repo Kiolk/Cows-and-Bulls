@@ -204,6 +204,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     }
 
     private void showRules() {
+
         enableNavigationButtons(false);
         mContainer.setVisibility(View.VISIBLE);
         mOpenChildScreen = RulesFragment.TAG;
@@ -223,6 +224,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         animation.setDuration(300);
         animation.setFillAfter(true);
         mContainer.startAnimation(animation);
+
     }
 
     public void hideResults() {

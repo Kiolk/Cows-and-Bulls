@@ -31,7 +31,7 @@ public class RulesFragment extends ToolBarFragment {
         Resources resources = view.getContext().getResources();
         String text = resources.getString(R.string.rules);
         String coloredText = resources.getString(R.string.start_part);
-        String bottomText = "";
+
         StartSpannable clickableSpan = new StartSpannable((StartSpannable.StartSpannableOnclickListener) getActivity(),
                 getContext().getResources().getColor(R.color.middleBlue));
         Spannable span = new SpannableString(text);
