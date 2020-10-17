@@ -28,7 +28,6 @@ public class StartSpannable extends ClickableSpan {
     @Override
     public void updateDrawState(@NonNull TextPaint ds) {
         super.updateDrawState(ds);
-//        ds.setColor(onclickListener.mGetContext().getResources().getColor(R.color.middleBlue));
         ds.setColor(startColor);
     }
 
@@ -38,6 +37,5 @@ public class StartSpannable extends ClickableSpan {
 
     public interface StartSpannableOnclickListener {
         public void start();
-        public boolean gameIsStarted();
     }
 }

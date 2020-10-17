@@ -30,11 +30,9 @@
         You need to guess a four-digit number with non-repeating digits.\n\n
         After entering the estimated number you will be given the answer where number of:\n\n
         cows - numbers are guessed without matching their positions, \n\n
-        bulls - numbers are guessed right up to the position. \n\n</string>
-    <string name="bottom_rules_start">To start click \"Start\"</string>
-    <string name="bottom_rules_close">\"Close\"</string>
+        bulls - numbers are guessed right up to the position. \n\n
+        To start click \"Start\"</string>
     <string name="start_part">Start</string>
-    <string name="close_part">Close</string>
     <string name="how_to_play_part">How to play?</string>
 
     <!-- fragment_result   -->

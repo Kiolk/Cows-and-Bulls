@@ -281,8 +281,4 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         mKeyboardLayout.startOutside();
     }
 
-    @Override
-    public boolean gameIsStarted() {
-        return mCustomTimer.isRunning();
-    }
 }

@@ -30,19 +30,10 @@ public class RulesFragment extends ToolBarFragment {
         TextView mRules = view.findViewById(R.id.tv_rules_description);
         Resources resources = view.getContext().getResources();
         String text = resources.getString(R.string.rules);
-        String coloredText = "";
+        String coloredText = resources.getString(R.string.start_part);
         String bottomText = "";
         StartSpannable clickableSpan = new StartSpannable((StartSpannable.StartSpannableOnclickListener) getActivity(),
                 getContext().getResources().getColor(R.color.middleBlue));
-
-        if (clickableSpan.getOnclickListener().gameIsStarted()) {
-            coloredText = resources.getString(R.string.close_part);
-            bottomText = resources.getString(R.string.bottom_rules_close);
-        } else {
-            coloredText = resources.getString(R.string.start_part);
-            bottomText = resources.getString(R.string.bottom_rules_start);
-        }
-        text = text + bottomText;
         Spannable span = new SpannableString(text);
         String howToPlayText = resources.getString(R.string.how_to_play_part);
         int length = text.length();
