@@ -1,7 +1,6 @@
 package com.github.kiolk.cowsandbulls.ui.views;
 
 import android.content.Context;
-import android.os.Bundle;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.util.AttributeSet;
@@ -157,7 +156,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         }
     }
 
-    public void stop(){
+    public void stop() {
         onStateChanged();
     }
 
@@ -174,7 +173,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         }
     }
 
-    private void enableButtons(Boolean enabled){
+    private void enableButtons(Boolean enabled) {
         mOne.setEnabled(enabled);
         mTwo.setEnabled(enabled);
         mThree.setEnabled(enabled);
@@ -188,7 +187,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         mClean.setEnabled(enabled);
     }
 
-    private void onStateChanged(){
+    private void onStateChanged() {
         if (!isStarted) {
             listener.onStartPressed();
             mStart.setText(R.string.stop);
@@ -234,7 +233,7 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
             mEnter.setEnabled(false);
             enableButtons(true);
 
-            if(mInput .length() == 4){
+            if (mInput.length() == 4) {
                 mEnter.setEnabled(true);
             }
         } else {
@@ -245,7 +244,13 @@ public class KeyboardLayout extends LinearLayout implements View.OnClickListener
         }
     }
 
-    public static class SavedState extends BaseSavedState{
+    public void startOutside() {
+        if (!isStarted) {
+            onStateChanged();
+        }
+    }
+
+    public static class SavedState extends BaseSavedState {
 
         private Boolean isStartedValue = false;
         private String inputValue = "";

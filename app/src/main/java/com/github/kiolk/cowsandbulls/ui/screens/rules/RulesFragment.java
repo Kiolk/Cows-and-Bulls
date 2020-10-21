@@ -4,7 +4,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
+import android.text.method.LinkMovementMethod;
 import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,6 +17,7 @@ import androidx.annotation.Nullable;
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.ui.screens.GameActivity;
 import com.github.kiolk.cowsandbulls.ui.screens.base.ToolBarFragment;
+import com.github.kiolk.cowsandbulls.ui.views.StartSpannable;
 
 public class RulesFragment extends ToolBarFragment {
 
@@ -29,14 +30,18 @@ public class RulesFragment extends ToolBarFragment {
         TextView mRules = view.findViewById(R.id.tv_rules_description);
         Resources resources = view.getContext().getResources();
         String text = resources.getString(R.string.rules);
+        String coloredText = resources.getString(R.string.start_part);
+        StartSpannable clickableSpan = new StartSpannable((StartSpannable.StartSpannableOnclickListener) getActivity(),
+                getContext().getResources().getColor(R.color.middleBlue));
         Spannable span = new SpannableString(text);
-        String coloredStartText = resources.getString(R.string.start_part);
         String howToPlayText = resources.getString(R.string.how_to_play_part);
         int length = text.length();
-        span.setSpan(new ForegroundColorSpan(view.getContext().getResources().getColor(R.color.middleBlue)), length - coloredStartText.length() - 1, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        span.setSpan(clickableSpan, length - coloredText.length() - 2, length, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         final StyleSpan bss = new StyleSpan(android.graphics.Typeface.BOLD);
         span.setSpan(bss, 0, howToPlayText.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mRules.setText(span);
+        mRules.setMovementMethod(LinkMovementMethod.getInstance());
         return view;
     }
 
