@@ -13,6 +13,6 @@
         android:fontFamily="@font/product_sans_regular"
         android:gravity="center"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="@color/txtColor"
         android:textSize="14sp" />
 </LinearLayout>

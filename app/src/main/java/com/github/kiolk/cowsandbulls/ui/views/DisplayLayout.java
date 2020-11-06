@@ -8,6 +8,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.github.kiolk.cowsandbulls.R;
 

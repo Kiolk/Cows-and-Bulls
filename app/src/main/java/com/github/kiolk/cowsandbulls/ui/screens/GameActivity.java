@@ -19,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.kiolk.cowsandbulls.App;
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.Move;
@@ -33,6 +34,7 @@ import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 import com.github.kiolk.cowsandbulls.ui.views.StartSpannable;
 import com.github.kiolk.cowsandbulls.utils.ANALYTICS;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
+import com.github.kiolk.cowsandbulls.utils.ThemeHelper;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
@@ -59,6 +61,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private FrameLayout mContainer;
     private ImageButton mResult;
     private ImageButton mRules;
+    private ImageButton mThemeMode;
     private GameAdapter mAdapter;
 
     private BestResultFragment mBestFragment;
@@ -71,6 +74,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         setTheme(R.style.AppTheme_Default);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        initTheme();
+
         mDisplayLayout = findViewById(R.id.display_input);
         mKeyboardLayout = findViewById(R.id.keyboard_game);
         mKeyboardLayout.setOnKeyBoardListener(this);
@@ -88,7 +94,23 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
             mAnalytics.logEvent(ANALYTICS.OPEN_RULES_EVENT, null);
             showRules();
         });
+        mThemeMode = findViewById(R.id.btn_theme_mode);
+        mThemeMode.setOnClickListener(v -> {
+            if (App.getPrefsInstance().getThemePref().equals(ThemeHelper.LIGHT_MODE)) {
+                App.getPrefsInstance().setThemePref(ThemeHelper.DARK_MODE);
+                ThemeHelper.applyTheme(ThemeHelper.DARK_MODE);
+            } else {
+                App.getPrefsInstance().setThemePref(ThemeHelper.LIGHT_MODE);
+                ThemeHelper.applyTheme(ThemeHelper.LIGHT_MODE);
+            }
+        });
         mAnalytics = FirebaseAnalytics.getInstance(getBaseContext());
+    }
+
+    private void initTheme() {
+
+        ThemeHelper.applyTheme(App.getPrefsInstance().getThemePref());
+
     }
 
     private void initRecyclerView() {

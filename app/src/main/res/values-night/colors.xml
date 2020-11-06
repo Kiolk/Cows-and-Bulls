@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="bgColor">#0A0A0A</color>
+    <color name="txtColor">#E3E3E3</color>
+
+    <color name="white">#0A0A0A</color>
+    <color name="generalBlue">#BC87FC</color>
+    <color name="middleBlue">#BC87FC</color>
+
+    <color name="lightBlue">#555555</color>
+
+</resources>
