@@ -7,11 +7,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 
 public class ThemeHelper {
 
-    public static final String LIGHT_MODE = "light";
-    public static final String DARK_MODE = "dark";
-    public static final String DEFAULT_MODE = "default";
+    public static final int LIGHT_MODE = 1;
+    public static final int DARK_MODE = 2;
+    public static final int DEFAULT_MODE = 3;
 
-    public static void applyTheme(@NonNull String themePref) {
+    public static void applyTheme(int themePref) {
         switch (themePref) {
             case LIGHT_MODE: {
                 AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);

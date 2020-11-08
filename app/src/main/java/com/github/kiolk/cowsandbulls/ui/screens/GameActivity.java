@@ -71,12 +71,10 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_Default);
+//        setTheme(R.style.AppTheme_Default);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         initTheme();
-
         mDisplayLayout = findViewById(R.id.display_input);
         mKeyboardLayout = findViewById(R.id.keyboard_game);
         mKeyboardLayout.setOnKeyBoardListener(this);
@@ -96,11 +94,11 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         });
         mThemeMode = findViewById(R.id.btn_theme_mode);
         mThemeMode.setOnClickListener(v -> {
-            if (App.getPrefsInstance().getThemePref().equals(ThemeHelper.LIGHT_MODE)) {
-                App.getPrefsInstance().setThemePref(ThemeHelper.DARK_MODE);
+            if (App.getSettingsRepository().getThemePref() == ThemeHelper.LIGHT_MODE) {
+                App.getSettingsRepository().setThemePref(ThemeHelper.DARK_MODE);
                 ThemeHelper.applyTheme(ThemeHelper.DARK_MODE);
             } else {
-                App.getPrefsInstance().setThemePref(ThemeHelper.LIGHT_MODE);
+                App.getSettingsRepository().setThemePref(ThemeHelper.LIGHT_MODE);
                 ThemeHelper.applyTheme(ThemeHelper.LIGHT_MODE);
             }
         });
@@ -108,9 +106,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     }
 
     private void initTheme() {
-
-        ThemeHelper.applyTheme(App.getPrefsInstance().getThemePref());
-
+        ThemeHelper.applyTheme(App.getSettingsRepository().getThemePref());
     }
 
     private void initRecyclerView() {

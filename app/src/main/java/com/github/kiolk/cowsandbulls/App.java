@@ -6,7 +6,6 @@ import android.app.NotificationManager;
 import android.os.Build;
 import android.util.Log;
 
-import com.github.kiolk.cowsandbulls.data.prefs.Prefs;
 import com.github.kiolk.cowsandbulls.data.repositories.game.DefaultGameRepository;
 import com.github.kiolk.cowsandbulls.data.repositories.game.GameRepository;
 import com.github.kiolk.cowsandbulls.data.repositories.game.remote.RemoteGameDataSource;
@@ -21,8 +20,6 @@ public class App extends Application {
     private static GameRepository gameRepository;
     private static SettingsRepository settingRepository;
     private static App instance;
-    private static volatile Prefs prefs;
-
 
     @Override
     public void onCreate() {
@@ -46,15 +43,6 @@ public class App extends Application {
         }
 
         return settingRepository;
-    }
-
-    public static Prefs getPrefsInstance() {
-        if (prefs == null) {
-            synchronized (Prefs.class) {
-                if (prefs == null) prefs = new Prefs(instance);
-            }
-        }
-        return prefs;
     }
 
     private void setupFireBaseMessaging() {
