@@ -14,6 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -71,10 +72,9 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-//        setTheme(R.style.AppTheme_Default);
+        initTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initTheme();
         mDisplayLayout = findViewById(R.id.display_input);
         mKeyboardLayout = findViewById(R.id.keyboard_game);
         mKeyboardLayout.setOnKeyBoardListener(this);
@@ -94,12 +94,12 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
         });
         mThemeMode = findViewById(R.id.btn_theme_mode);
         mThemeMode.setOnClickListener(v -> {
-            if (App.getSettingsRepository().getThemePref() == ThemeHelper.LIGHT_MODE) {
-                App.getSettingsRepository().setThemePref(ThemeHelper.DARK_MODE);
-                ThemeHelper.applyTheme(ThemeHelper.DARK_MODE);
+            if (App.getSettingsRepository().getThemePref() == AppCompatDelegate.MODE_NIGHT_NO) {
+                App.getSettingsRepository().setThemePref(AppCompatDelegate.MODE_NIGHT_YES);
+                ThemeHelper.applyTheme(AppCompatDelegate.MODE_NIGHT_YES);
             } else {
-                App.getSettingsRepository().setThemePref(ThemeHelper.LIGHT_MODE);
-                ThemeHelper.applyTheme(ThemeHelper.LIGHT_MODE);
+                App.getSettingsRepository().setThemePref(AppCompatDelegate.MODE_NIGHT_NO);
+                ThemeHelper.applyTheme(AppCompatDelegate.MODE_NIGHT_NO);
             }
         });
         mAnalytics = FirebaseAnalytics.getInstance(getBaseContext());
