@@ -13,6 +13,7 @@ public class LocalSettingsDataSource implements SettingsDataSource {
     public static final String USER_NAME = "USER_NAME";
     public static final String IDENTIFICATION = "IDENTIFICATION";
     public static final String DEVICE_TOKEN = "DEVICE_TOKEN";
+    private static final String MODE_THEME = "MODE_THEME";
 
     private SharedPreferences preferences;
 
@@ -60,5 +61,15 @@ public class LocalSettingsDataSource implements SettingsDataSource {
     @Override
     public String getDeviceToken() {
         return preferences.getString(DEVICE_TOKEN, null);
+    }
+
+    @Override
+    public int getThemePref() { return preferences.getInt(MODE_THEME, 1); }
+
+    @Override
+    public void setThemePref(int newTheme) {
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putInt(MODE_THEME, newTheme);
+        editor.apply();
     }
 }

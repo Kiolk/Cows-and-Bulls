@@ -21,7 +21,6 @@ public class App extends Application {
     private static SettingsRepository settingRepository;
     private static App instance;
 
-
     @Override
     public void onCreate() {
         super.onCreate();

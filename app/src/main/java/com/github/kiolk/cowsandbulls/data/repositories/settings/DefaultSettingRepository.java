@@ -37,4 +37,12 @@ public class DefaultSettingRepository implements SettingsRepository {
     public String getDeviceToken() {
         return local.getDeviceToken();
     }
+
+    @Override
+    public int getThemePref() { return local.getThemePref(); }
+
+    @Override
+    public void setThemePref(int newTheme) {
+        local.setThemePref(newTheme);
+    }
 }

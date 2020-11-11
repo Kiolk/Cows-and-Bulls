@@ -13,4 +13,8 @@ public interface SettingsRepository {
     void setDeviceToken(String token);
 
     String getDeviceToken();
+
+    int getThemePref();
+
+    void setThemePref(int newTheme);
 }

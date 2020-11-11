@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     android:orientation="vertical">
 
     <TextView
@@ -50,7 +51,6 @@
             android:gravity="center"
             android:text="@string/rules"
             android:textAlignment="center"
-            android:textColor="@color/black"
             android:textSize="14sp" />
     </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

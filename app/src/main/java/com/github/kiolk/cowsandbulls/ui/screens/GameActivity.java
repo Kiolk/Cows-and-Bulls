@@ -14,11 +14,13 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.github.kiolk.cowsandbulls.App;
 import com.github.kiolk.cowsandbulls.R;
 import com.github.kiolk.cowsandbulls.data.models.GameResult;
 import com.github.kiolk.cowsandbulls.data.models.Move;
@@ -33,6 +35,7 @@ import com.github.kiolk.cowsandbulls.ui.views.KeyboardLayout;
 import com.github.kiolk.cowsandbulls.ui.views.StartSpannable;
 import com.github.kiolk.cowsandbulls.utils.ANALYTICS;
 import com.github.kiolk.cowsandbulls.utils.NumberUtil;
+import com.github.kiolk.cowsandbulls.utils.ThemeHelper;
 import com.google.firebase.analytics.FirebaseAnalytics;
 
 import java.util.ArrayList;
@@ -59,6 +62,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
     private FrameLayout mContainer;
     private ImageButton mResult;
     private ImageButton mRules;
+    private ImageButton mThemeMode;
     private GameAdapter mAdapter;
 
     private BestResultFragment mBestFragment;
@@ -68,7 +72,7 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.AppTheme_Default);
+        initTheme();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mDisplayLayout = findViewById(R.id.display_input);
@@ -88,7 +92,21 @@ public class GameActivity extends AppCompatActivity implements KeyboardLayout.On
             mAnalytics.logEvent(ANALYTICS.OPEN_RULES_EVENT, null);
             showRules();
         });
+        mThemeMode = findViewById(R.id.btn_theme_mode);
+        mThemeMode.setOnClickListener(v -> {
+            if (App.getSettingsRepository().getThemePref() == AppCompatDelegate.MODE_NIGHT_NO) {
+                App.getSettingsRepository().setThemePref(AppCompatDelegate.MODE_NIGHT_YES);
+                ThemeHelper.applyTheme(AppCompatDelegate.MODE_NIGHT_YES);
+            } else {
+                App.getSettingsRepository().setThemePref(AppCompatDelegate.MODE_NIGHT_NO);
+                ThemeHelper.applyTheme(AppCompatDelegate.MODE_NIGHT_NO);
+            }
+        });
         mAnalytics = FirebaseAnalytics.getInstance(getBaseContext());
+    }
+
+    private void initTheme() {
+        ThemeHelper.applyTheme(App.getSettingsRepository().getThemePref());
     }
 
     private void initRecyclerView() {

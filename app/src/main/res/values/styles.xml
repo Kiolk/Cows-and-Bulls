@@ -1,20 +1,21 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/lightBlue</item>
         <item name="colorPrimaryDark">@color/generalBlue</item>
         <item name="colorAccent">@color/lightBlue</item>
+        <item name="android:windowBackground">@color/bgColor</item>
     </style>
 
     <style name="AppTheme.DefaultText" parent="TextAppearance.AppCompat">
         <item name="android:textSize">16sp</item>
-        <item name="android:textColor">@color/generalGray</item>
+        <item name="android:textColor">@color/txtColor</item>
         <item name="android:fontFamily">@font/product_sans_regular</item>
     </style>
 
-    <style name="SplashTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <style name="SplashTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowFullscreen">true</item>
 <!--        <item name="android:background">@drawable/launcher_screen</item>-->
     </style>
